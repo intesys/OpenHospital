@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RadiologyExamReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="44cb04b0-675a-4168-a982-32500d2d063e">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.util.*"/>
+	<parameter name="technique" class="java.lang.String"/>
+	<parameter name="examDate" class="java.lang.String"/>
+	<parameter name="patientName" class="java.lang.String"/>
+	<parameter name="impression" class="java.lang.String"/>
+	<parameter name="finding" class="java.lang.String"/>
+	<parameter name="clinicalHistory" class="java.lang.String"/>
+	<parameter name="examType" class="java.lang.String"/>
+	<parameter name="pastExams" class="java.lang.String"/>
+	<parameter name="hospitalDescription" class="java.lang.String"/>
+	<parameter name="hospitalCity" class="java.lang.String"/>
+	<parameter name="hospitalAddress" class="java.lang.String"/>
+	<parameter name="hospitalTelephone" class="java.lang.String"/>
+	<parameter name="hospitalFax" class="java.lang.String"/>
+	<parameter name="hospitalEmail" class="java.lang.String"/>
+	<parameter name="radiologist" class="java.lang.String"/>
+	<filterExpression><![CDATA[new Boolean(true)]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="151" y="0" width="245" height="20" uuid="d6028388-4c11-4c2f-905f-e8418736dfcc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Radiology Exam Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="553" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="4030a93a-8281-4c93-9c31-84b3581c5d5d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Patient Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="528c3e35-b79c-49c8-9b3d-b02d633d10f0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Exam Type: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="1fe31504-3945-4fc6-81a7-3253a53262a3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Exam Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="40" width="100" height="20" uuid="34321a5e-85b3-483d-ae54-3f30b6096bad"/>
+				<textFieldExpression><![CDATA[$P{patientName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="60" width="160" height="20" uuid="c6374399-f2a6-47d6-824d-6502a41f7b8a"/>
+				<textFieldExpression><![CDATA[$P{examType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="80" width="100" height="20" uuid="652e389d-1a22-4357-9d3a-2451b05b3f78"/>
+				<textFieldExpression><![CDATA[$P{examDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="140" width="100" height="20" uuid="45f6ab02-d26a-4907-bdc6-ca608b8b2ad1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Clinical History]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="162" width="555" height="35" uuid="1aebb5bf-6c86-400b-b178-e3acf793dbb2"/>
+				<textFieldExpression><![CDATA[$P{clinicalHistory}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="207" width="125" height="20" uuid="fe228f60-16df-4380-b496-15cc65cf49d9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Comparisons]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="227" width="555" height="48" uuid="57fd3374-53f3-463d-b307-6426a0b368f5"/>
+				<textFieldExpression><![CDATA[$P{pastExams}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="286" width="72" height="20" uuid="b27bf157-fd50-4f7c-be92-14e328779f63"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Technique]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="306" width="555" height="50" uuid="2ce411ac-b67e-4baa-98f7-249bfe68c6d6"/>
+				<textFieldExpression><![CDATA[$P{technique}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="366" width="72" height="20" uuid="e5573806-44b9-4000-bb9e-5832fac7ae39"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Finding]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="386" width="555" height="50" uuid="7d721d00-267d-449e-996a-a17968bd6b90"/>
+				<textFieldExpression><![CDATA[$P{finding}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="447" width="72" height="20" uuid="fe5ffb7f-f3aa-4a2e-8e93-8fec63778f5b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Impression]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="467" width="555" height="44" uuid="f853c411-f373-4ce0-9336-b195697a85e4"/>
+				<textFieldExpression><![CDATA[$P{impression}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="80" width="143" height="20" uuid="962d8aef-59b7-4201-9f70-5ab81b589272"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalTelephone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="60" width="243" height="20" uuid="28ddfb6a-9254-4a6a-b49e-2c3a65586c78"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="40" width="243" height="20" uuid="7974e87c-3bfe-4223-b64a-58c3cb1ce4ff"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalCity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="20" width="243" height="20" uuid="3c4345dd-baf6-4356-b95f-c5ec39d1d460"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalDescription}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="125" y="119" width="100" height="20" uuid="dbcce8f4-a9c5-402d-ad1a-1a0275f810b6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="99" width="143" height="20" uuid="5dbf6c9b-366e-4f32-92ab-8356cb6a18bd"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalFax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="119" width="243" height="20" uuid="d78cdbd9-2436-48fd-ab87-5658d08db150"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hospitalEmail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="119" width="100" height="20" uuid="7d095e71-8257-450c-8405-07862937bc6e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Report Date: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="139" width="555" height="1" uuid="8ef2a3f4-426e-4d35-b28b-382adea8e1b3"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="20" uuid="b40b8a26-41de-4d93-a627-1062d032d688"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Radiologist: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="99" width="160" height="20" uuid="863c85a8-c708-4395-89b0-8d67c8b321d5"/>
+				<textFieldExpression><![CDATA[$P{radiologist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="80" width="100" height="20" uuid="2742f9bc-5f60-446e-b972-6c63232309b4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telephone: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="99" width="100" height="20" uuid="e4127d20-8469-4d5c-8e9f-60022be3003c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fax: ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="424" y="0" width="80" height="20" uuid="38cd50f4-406a-4bbe-8713-a1b8a2852624"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="504" y="0" width="40" height="20" uuid="39dbc02f-535a-494e-a3da-807a5269964e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
