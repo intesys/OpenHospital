@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Update OpenHospital" default="distribute" basedir=".">
+<project name="OpenHospital" default="distribute" basedir=".">
 	<property file="build.properties" />
 
 	<path id="classpath">
@@ -45,54 +45,78 @@
 	</target>
 
 	<target name="distribute" depends="clean,build,wrapper" description="Creates distribution files of application">
-		<mkdir dir="${dist.dir}/${lib.dir}" />
-		<mkdir dir="${dist.dir}/${bin.dir}" />
+		
+		
 		<!-- <jar jarfile="${dist.dir}/${bin.dir}/OH.jar" basedir="${bin.dir}" /> -->
-		<jar destfile="${dist.dir}/${bin.dir}/OH.jar">  
+		
+
+                <mkdir dir="${dist.dir}/${bin.dir}" />
+                <jar destfile="${dist.dir}/${bin.dir}/OH.jar">  
 		  <fileset dir="${bin.dir}" />  
 		  <metainf dir="${src.dir}/META-INF"  includes="**/persistence.xml" />        
 		</jar>
-
+                
+                <mkdir dir="${dist.dir}/${lib.dir}" />
+                <copy todir="${dist.dir}/${lib.dir}">
+			<fileset dir="${main.dir}/${lib.dir}">
+			</fileset>
+		</copy>
+                
                 <copy file="OpenHospital.cmd" todir="${dist.dir}" />
-                <copy file="IReports.cmd" todir="${dist.dir}" />
-		<copy file="startup.sh" todir="${dist.dir}" />
-		<copy file="SetupGSM.sh" todir="${dist.dir}" />
-		<copy file="startup.cmd" todir="${dist.dir}" />
-		<copy file="SetupGSM.cmd" todir="${dist.dir}" />
-		<copy file="oh.ico" todir="${dist.dir}" />
-		
-		<chmod file="${dist.dir}/startup.sh" perm="+x" />
+                <copy file="OpenHospital.sh" todir="${dist.dir}" />
+                <copy file="SetupGSM.cmd" todir="${dist.dir}" />
+                <copy file="SetupGSM.sh" todir="${dist.dir}" />
+                <chmod file="${dist.dir}/OpenHospital.sh" perm="+x" />
 		<chmod file="${dist.dir}/SetupGSM.sh" perm="+x" />
-
+                
+                <copy file="oh.ico" todir="${dist.dir}" />
+                
+                <mkdir dir="${dist.dir}/${remote_svcs.dir}" />
                 <copy todir="${dist.dir}/${remote_svcs.dir}">
 			<fileset dir="${main.dir}/${remote_svcs.dir}">
 			</fileset>
 		</copy>
+                <mkdir dir="${dist.dir}/${local_svcs.dir}" />
+                <copy todir="${dist.dir}/${local_svcs.dir}">
+			<fileset dir="${main.dir}/${local_svcs.dir}">
+			</fileset>
+		</copy>
+                
+                <mkdir dir="${dist.dir}/${rsc.dir}" />
 		<copy todir="${dist.dir}/${rsc.dir}">
 			<fileset dir="${main.dir}/${rsc.dir}">
 			</fileset>
 		</copy>
-		<copy todir="${dist.dir}/${rpt.dir}">
+                <mkdir dir="${dist.dir}/${bundle.dir}" />
+                <copy todir="${dist.dir}/${bundle.dir}">
+			<fileset dir="${main.dir}/${bundle.dir}">
+			</fileset>
+		</copy>
+                <mkdir dir="${dist.dir}/${rpt.dir}" />
+                <copy todir="${dist.dir}/${rpt.dir}">
 			<fileset dir="${main.dir}/${rpt.dir}">
 			</fileset>
 		</copy>
 		<mkdir dir="${dist.dir}/${rpt.dir}/PDF" />
-		<copy todir="${dist.dir}/${bundle.dir}">
-			<fileset dir="${main.dir}/${bundle.dir}">
-			</fileset>
-		</copy>
-		<copy todir="${dist.dir}/${lib.dir}">
-			<fileset dir="${main.dir}/${lib.dir}">
-			</fileset>
-		</copy>
+		
+                
+                <copy file="README.md" todir="${dist.dir}" />
+                <mkdir dir="${dist.dir}/${doc.dir}" />
 		<copy todir="${dist.dir}/${doc.dir}">
 			<fileset dir="${main.dir}/${doc.dir}">
 				<include name="**/*.pdf" />
 				<include name="**/*.txt" />
 			</fileset>
 		</copy>
+                <mkdir dir="${dist.dir}/logs" />
+
+                
+		
+		
+		
+		<mkdir dir="${dist.dir}/${mysql.dir}" />
 		<copy todir="${dist.dir}/${mysql.dir}">
-			<fileset dir="${main.dir}/${mysql.dir}/db">
+			<fileset dir="${main.dir}/${mysql.dir}">
 			</fileset>
 		</copy>
 
