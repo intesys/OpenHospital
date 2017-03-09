@@ -17,12 +17,12 @@ For remote MySQL server you need to change:
 - rsc/database.properties
 - rsc/log4j.properties
 
-**How to launch the software**:
+**How to launch the software:**
 -Create an Environment Variable JAVA7_HOME and set its value to the path of the JDK7 installation on the Client
 -Deployment Directory, as produced by Maven, will be /target/OpenHospital20/
 -Use scripts OpenHospital.sh (Linux) or OpenHospital.cmd (Windows) located in the Deployment Directory
 
-**Distributed Deployment(Remote Sql Server)**
+**Distributed Deployment(Remote Sql Server):**
 -Copy the directory folder remote_services/DbUpdateNotifier to your Server
 -Create an Environment Variable JAVA7_HOME and set its value to the path of the JDK7 installation on the Server
 -Configure the Windows Server to start the cmd file 'startup.cmd' on startup.(This will be a remote service used by the clients)
