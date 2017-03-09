@@ -25,7 +25,7 @@ Deployment Directory, as produced by Maven, will be /target/OpenHospital20/
 
 Use scripts OpenHospital.sh (Linux) or OpenHospital.cmd (Windows) located in the Deployment Directory
 
-Distributed Deployment(Remote Sql Server):
+**Distributed Deployment(Remote Sql Server)**:
 
 Copy the directory folder remote_services/DbUpdateNotifier to your Server
 
