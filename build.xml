@@ -108,7 +108,7 @@
 				<include name="**/*.txt" />
 			</fileset>
 		</copy>
-                <mkdir dir="${dist.dir}/logs" />
+                <mkdir dir="${dist.dir}/${logs.dir}" />
 
                 
 		
