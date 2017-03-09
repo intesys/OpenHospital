@@ -38,6 +38,7 @@ import org.slf4j.MDC;
 
 //--------------------------------------------------------------Radiology--------------------------------------------
 import org.isf.utils.services.ReportService;
+import org.isf.utils.services.RemoteServices;
 import org.isf.utils.services.DbUpdateSubscriber;
 
 //--------------------------------------------------------------------------------------------------------------
@@ -281,6 +282,7 @@ public class MainMenu extends JFrame implements ActionListener, Login.LoginListe
                 
                 //--------------------------------------------------Radiology---------------------------------------
                 ReportService.doStart();
+		RemoteServices.doStart();
                 
                 //-----------------------------------------------------------------------------------------------
 	}
