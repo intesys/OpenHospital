@@ -17,7 +17,7 @@ public class RemoteServices {
         
         try {
         
-            p.load(new FileInputStream("rsc" + File.separator + "remoteservices.properties"));
+            p.load(new FileInputStream("rsc" + File.separator + "remoteServices.properties"));
             serviceURL = p.getProperty(serviceName);
             
         }
@@ -29,5 +29,40 @@ public class RemoteServices {
         
         
     }
+    
+    //-----------------------------------------------------------------------------------------------------------------------------
+    
+    public static final void doStart() {
+        
+        try {
+        
+            String[] params = {
+                  
+               System.getProperty("user.dir")+  File.separator + "remote_svcs" + File.separator + "DbUpdateNotifier" + File.separator + "startup.cmd"
+                
+            };
+                    
+
+             Runtime.getRuntime().exec(params);
+    
+           //  process = new ProcessBuilder(params).start();
+             
+             
+    
+       }
+
+       catch (Exception e) {
+
+            System.out.println("Error executing Process: " + e.getMessage());
+    
+        }
+
+             
+       return;
+
+
+  }
+    
+    //--------------------------------------------------------------------------------------------------------------
     
 }
