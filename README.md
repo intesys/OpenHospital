@@ -20,13 +20,17 @@ For remote MySQL server you need to change:
 **How to launch the software**:
 
 Create an Environment Variable JAVA7_HOME
+
 Deployment Directory, as produced by Maven, will be /target/OpenHospital20/
+
 Use scripts OpenHospital.sh (Linux) or OpenHospital.cmd (Windows) located in the Deployment Directory
 
 Distributed Deployment(Remote Sql Server):
 
 Copy the directory folder remote_services/DbUpdateNotifier to your Server
+
 Create an Environment Variable JAVA7_HOME
+
 Configure the Windows Server to start the cmd file 'startup.cmd' on startup
 
 **Other info**
