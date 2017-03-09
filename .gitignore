@@ -4,4 +4,4 @@
 bin
 logs
 /target/
-!/remote_svcs/DbUpdateNotifier/bin/
+!/remote_svcs/
