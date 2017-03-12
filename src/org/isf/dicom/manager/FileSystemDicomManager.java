@@ -43,6 +43,8 @@ public class FileSystemDicomManager implements DicomManagerInterface {
 		try {
 			dir = new File(externalPrp.getProperty("dicom.storage.filesystem"));
 
+                        
+                        
 			recourse(dir);
 
 		} catch (Exception ecc) {
@@ -51,6 +53,8 @@ public class FileSystemDicomManager implements DicomManagerInterface {
 			System.exit(-100);
 		}
 	}
+        
+       
 
 	/**
 	 * Load a list of idfile for series

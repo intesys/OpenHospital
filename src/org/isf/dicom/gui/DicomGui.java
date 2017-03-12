@@ -45,42 +45,60 @@ public class DicomGui extends JFrame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// STATUS
-	private String lastDir = ".";
+	
+	
 
 	// GUI COMPONENTS
 	private final float factor = 8f / 11f;
-
-	private JButton jButtonLoadDicom;
-	private JButton jButtonDeleteDicom;
 	private JButton jButtonExit;
 	private JPanel jPanel1;
-	private JPanel jPanelDetail;
-	private JPanel jPanelButton;
 	private JScrollPane jScrollPane2;
-	private JSplitPane jSplitPane1;
 	private JPanel jPanelMain;
-
-	private ThumbnailViewGui thumbnail = null;
-	private int patient = -1;
-	private Patient ohPatient = null;
 	private int position = 150;
-
 	private JFrame myJFrame = null;
-
 	private PatientFolderBrowser owner = null;
+        private Patient ohPatient = null;
+        
+        //------------------------------------------------------------Radiology----------------------------------------
+        protected String lastDir = ".";
+        protected JButton jButtonLoadDicom;
+	protected JButton jButtonDeleteDicom;
+        protected JPanel jPanelDetail;
+	protected JPanel jPanelButton;
+        protected JSplitPane jSplitPane1;
+        protected ThumbnailViewGui thumbnail;
+	protected int patient = -1;
+	
+        
+        //-------------------------------------------------------------------------------------------
 
 	/**
 	 * Construct a GUI
 	 * 
 	 * @param, paziente the data wrapper for OH Patient
 	 */
+        
+        //---------------------------------------------------------Radiology-----------------------------------------
+        protected void setThumbnailViewGui() {  
+ 		 
+ 		 
+ 		             
+            thumbnail = new ThumbnailViewGui(patient, this);  
+ 		 
+ 		     
+ 		       
+        }
+        
+        //----------------------------------------------------------------------------------------------------------
 	public DicomGui(Patient paziente, PatientFolderBrowser owner) {
 		super();
 		this.patient = paziente.getCode().intValue();
 		this.ohPatient = paziente;
 		this.owner = owner;
+                //---------------------------------------------------Radiology-----------------------------------
+                setThumbnailViewGui();
 
+                //----------------------------------------------------------------------------------------------
 		initialize();
 		setVisible(true);
 		addWindowListener(this);
@@ -154,8 +172,9 @@ public class DicomGui extends JFrame implements WindowListener {
 
 	}
 
-	private void initComponents() {
-
+        //---------------------------------------------------------------Radiology------------------------------------
+	protected void initComponents() {
+        
 		jPanelMain = new JPanel();
 		jPanel1 = new JPanel();
 		jButtonLoadDicom = new JButton();
@@ -196,7 +215,7 @@ public class DicomGui extends JFrame implements WindowListener {
 
 		jSplitPane1.setDividerLocation(position);
 		jSplitPane1.setName("jSplitPane1");
-		thumbnail = new ThumbnailViewGui(patient, this);
+		//thumbnail = new ThumbnailViewGui(patient, this);
 		jPanelDetail.setName("jPanelDetail");
 		jSplitPane1.setRightComponent(jPanelDetail);
 		jScrollPane2 = new JScrollPane();
@@ -224,7 +243,10 @@ public class DicomGui extends JFrame implements WindowListener {
 
 	}// Layered with Netbeans Designer
 
+        //------------------------------------------------------------------------------------------------------------
 	// EVENT LISTENER
+        
+        
 
 	private void addEventListener() {
 		actionListenerJButtonLoadDicom();
@@ -324,10 +346,18 @@ public class DicomGui extends JFrame implements WindowListener {
 	 * Invoked when a window has been closed as the result of calling dispose on
 	 * the window.
 	 */
+        
+        
 	public void windowClosed(WindowEvent e) {
 		this.setVisible(false);
 		this.dispose();
-		owner.resetDicomViewer();
+                //-----------------------------------------------Radiology----------------------------------------
+                if(owner != null) {
+                    owner.resetDicomViewer();
+                }
+                
+                //------------------------------------------------------------------------------------------------
+		
 	}
 
 	/**

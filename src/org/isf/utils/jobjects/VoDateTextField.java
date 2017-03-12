@@ -123,7 +123,8 @@ public class VoDateTextField extends JTextField {
 				if (getText().length()!=TYPE.length()) {
 					JOptionPane.showMessageDialog(				
 							null,
-							"\""+getText()+"\" is not a valid date",
+							//"\""+getText()+"\" is not a valid date",
+                                                        "Please use the following Date format: DD/MM/YYYY",
 							"St Luke Hospital",
 							JOptionPane.PLAIN_MESSAGE);
 						if (currentDate.equals("nothing"))
@@ -168,8 +169,9 @@ public class VoDateTextField extends JTextField {
 				} else {
 					JOptionPane.showMessageDialog(				
 							null,
-							"\""+getText()+"\" is not a valid date\n" +
-							"Please use / or - to separate",
+							//"\""+getText()+"\" is not a valid date\n" +
+                                                        "Please use the following Date format:DD/MM/YYYY" +  
+                                                                "Please use / or - to separate",
 							"St Luke Hospital",
 							JOptionPane.PLAIN_MESSAGE);
 				}

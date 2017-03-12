@@ -42,6 +42,6 @@ set CLASSPATH=%CLASSPATH%;%OH_BIN%\OH.jar
 set CLASSPATH=%CLASSPATH%;%OH_BUNDLE%
 
 cd /d %OH_PATH%oh\
-%OH_PATH%jre6\bin\java.exe -showversion -Djava.library.path=%OH_PATH%oh\lib\native\Windows -cp %CLASSPATH% org.isf.menu.gui.Menu
+%OH_PATH%jre7\bin\java.exe -showversion -Djava.library.path=%OH_PATH%oh\lib\native\Windows -cp %CLASSPATH% org.isf.menu.gui.Menu
 start /b %OH_PATH%mysql\bin\mysqladmin --user=root --password= --port=3307 shutdown
 exit

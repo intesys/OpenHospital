@@ -36,6 +36,14 @@ import org.isf.serviceprinting.manager.PrintManager;
 import org.isf.utils.jobjects.ModalJFrame;
 import org.isf.utils.treetable.JTreeTable;
 
+//----------------------------------------------------------------Radiology------------------------------------
+
+
+import org.isf.radiology.manager.RadiologyManager;  
+import org.isf.radiology.model.Radiology;
+
+//--------------------------------------------------------------------------------------------------------------
+
 /**
  * Browsing of table PriceList
  * 
@@ -59,9 +67,13 @@ public class PricesBrowser extends ModalJFrame {
 	private JButton jButtonManage;
 	private JButton jPrintTableButton;
 	private JPanel jPanelDescription;
-    static protected String[] cCategories = {"EXA","OPE","MED","OTH"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    static protected String[] cCategoriesNames = {MessageBundle.getMessage("angal.priceslist.exams"),MessageBundle.getMessage("angal.priceslist.operations"),MessageBundle.getMessage("angal.priceslist.medicals"),MessageBundle.getMessage("angal.priceslist.others")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    private boolean[] columsResizable = {true, false};
+        
+        //---------------------------------------------------------------Radiology-------------------------
+        static protected String[] cCategories = {"EXA","OPE","MED","RAD", "OTH"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        static protected String[] cCategoriesNames = {MessageBundle.getMessage("angal.priceslist.exams"),MessageBundle.getMessage("angal.priceslist.operations"),MessageBundle.getMessage("angal.priceslist.medicals"),
+                                                      MessageBundle.getMessage("angal.priceslist.radiologies"), MessageBundle.getMessage("angal.priceslist.others")}; //$NON-NLS-
+        //----------------------------------------------------------------------------------------------------------
+        private boolean[] columsResizable = {true, false};
 	private int[] columWidth = {400,150};
     
 	private PriceListManager listManager = new PriceListManager();
@@ -71,7 +83,7 @@ public class PricesBrowser extends ModalJFrame {
 	
 	private PriceNode examNodes;
 	private ExamBrowsingManager examManager = new ExamBrowsingManager();
-    private ArrayList<Exam> examArray = examManager.getExams();
+        private ArrayList<Exam> examArray = examManager.getExams();
     
     private PriceNode opeNodes;
     private OperationBrowserManager operManager = new OperationBrowserManager();
@@ -80,6 +92,13 @@ public class PricesBrowser extends ModalJFrame {
     private PriceNode medNodes;
     private MedicalBrowsingManager mediManager = new MedicalBrowsingManager();
     private ArrayList<Medical> mediArray = mediManager.getMedicals();
+    
+    //-------------------------------------------------Radiology-------------------------------------
+    private PriceNode radNodes;  
+    private RadiologyManager radiologyManager = new RadiologyManager();  
+    private ArrayList<Radiology> radArray = radiologyManager.getRadiologies();  
+    
+    //------------------------------------------------------------------------------------------------
     
     private PriceNode othNodes;
     private PricesOthersManager othManager = new PricesOthersManager();
@@ -228,6 +247,12 @@ public class PricesBrowser extends ModalJFrame {
 							updateFromDB();
 							PriceNode root = getTreeContent();
 							jTreeTable.setModel(new PriceModel(root));
+                                                        
+                                                        //-------------------------------Radiology------------------
+                                                        
+                                                        jTreeTable.getTree().expandRow(5);  
+ 		                                        jTreeTable.getTree().expandRow(4); 
+                                                        //-----------------------------------------------------------
 							jTreeTable.getTree().expandRow(3);
 						    jTreeTable.getTree().expandRow(2);
 						    jTreeTable.getTree().expandRow(1);
@@ -265,6 +290,17 @@ public class PricesBrowser extends ModalJFrame {
 			PriceNode newPriceNode = (PriceNode)medNodes.getItems()[i];
 			listPrices.add(newPriceNode.getPrice());
 		}
+                
+                //-------------------------------------Radiology-------------------------------------
+                
+                for (int i=0; i<radNodes.getItems().length; i++) {  
+ 		            
+ 		           PriceNode newPriceNode = (PriceNode)radNodes.getItems()[i];  
+ 		           listPrices.add(newPriceNode.getPrice());  
+ 		       
+                }  
+                
+                //-------------------------------------------------------------------------------------
 		for (int i=0; i<othNodes.getItems().length; i++) {
 			
 			PriceNode newPriceNode = (PriceNode)othNodes.getItems()[i];
@@ -291,6 +327,9 @@ public class PricesBrowser extends ModalJFrame {
 		    
 		    jTreeTable = new JTreeTable(new PriceModel(root));
 		    
+                    //----------------------------------------Radiology--------------------------------------------
+                    jTreeTable.getTree().expandRow(5);  
+                    //--------------------------------------------------------------------------------------------
 		    jTreeTable.getTree().expandRow(4);
 		    jTreeTable.getTree().expandRow(3);
 		    jTreeTable.getTree().expandRow(2);
@@ -315,6 +354,7 @@ public class PricesBrowser extends ModalJFrame {
 		examArray = examManager.getExams();
 	    operArray = operManager.getOperation();
 	    mediArray = mediManager.getMedicals();
+            radArray = radiologyManager.getRadiologies(); 
 	    othArray = othManager.getOthers();
 	}
 
@@ -347,19 +387,34 @@ public class PricesBrowser extends ModalJFrame {
 	    	double priceValue = p != null ? p.getPrice() : 0.;
 		    medNodes.addItem(new PriceNode(new Price(null, cCategories[2], med.getCode().toString(), med.getDescription(), priceValue)));
 	    }
+            
+            //---------------------------------------------Radiology----------------------------------------------
+            
+            radNodes = new PriceNode(new Price(null,"","",cCategoriesNames[3],null)); //$NON-NLS-1$ //$NON-NLS-2$  
+            for(Radiology rad: radArray) {  
+ 		           
+                Price p = priceHashTable.get(listSelected.getId()+cCategories[3]+rad.getCode().toString());  
+ 		double priceValue = p != null ? p.getPrice() : 0.;  
+ 		radNodes.addItem(new PriceNode(new Price(null, cCategories[3], rad.getCode().toString(), rad.getDescription(), priceValue)));  
+ 		       
+            }  
 	    
-	    othNodes = new PriceNode(new Price(null,"","",cCategoriesNames[3],null)); //$NON-NLS-1$ //$NON-NLS-2$
+            
+	    othNodes = new PriceNode(new Price(null,"","",cCategoriesNames[4],null)); //$NON-NLS-1$ //$NON-NLS-2$
 	    for(PricesOthers oth: othArray){
-	    	Price p = priceHashTable.get(listSelected.getId()+cCategories[3]+oth.getId());
+	    	Price p = priceHashTable.get(listSelected.getId()+cCategories[4]+oth.getId());
 	    	double priceValue = p != null ? p.getPrice() : 0.;
-	    	othNodes.addItem(new PriceNode(new Price(null, cCategories[3], Integer.toString(oth.getId()), oth.getDescription(), priceValue, !oth.isUndefined())));
+	    	othNodes.addItem(new PriceNode(new Price(null, cCategories[4], Integer.toString(oth.getId()), oth.getDescription(), priceValue, !oth.isUndefined())));
 	    }
 	    
 	    PriceNode root = new PriceNode(new Price(null,"","",listSelected.getName(),null)); //$NON-NLS-1$ //$NON-NLS-2$
 	    root.addItem(examNodes);
 	    root.addItem(opeNodes);
 	    root.addItem(medNodes);
+            root.addItem(radNodes); 
 	    root.addItem(othNodes);
+            
+            //------------------------------------------------------------------------------------------------------
 	    
 	    return root;
 	}

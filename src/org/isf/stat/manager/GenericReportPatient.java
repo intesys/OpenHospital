@@ -22,6 +22,11 @@ import org.isf.hospital.manager.HospitalBrowsingManager;
 import org.isf.hospital.model.Hospital;
 import org.isf.utils.db.DbSingleConn;
 
+//------------------------------------------------------Radiology-------------------------------------------
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+
+
 public class GenericReportPatient {
 
 	public GenericReportPatient(Integer patientID, String jasperFileName) {
@@ -42,14 +47,17 @@ public class GenericReportPatient {
 			sbFilename.append("rpt");
 			sbFilename.append(File.separator);
 			sbFilename.append(jasperFileName);
-			sbFilename.append(".jasper");
+			//sbFilename.append(".jasper");
 			//System.out.println("Clinical sheet jasper report name:"+sbFilename.toString());
+                        
+                        sbFilename.append(".jrxml");
 			
-			File jasperFile = new File(sbFilename.toString());
+			//File jasperFile = new File(sbFilename.toString());
 			
 			Connection conn = DbSingleConn.getConnection();
 			
-			JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
+			//JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
+                        JasperReport jasperReport = JasperCompileManager.compileReport(sbFilename.toString());
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
 			String PDFfile = "rpt/PDF/"+jasperFileName + "_" + String.valueOf(patientID)+".pdf";
 			JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
@@ -70,3 +78,5 @@ public class GenericReportPatient {
 	}
 	
 }
+
+//-----------------------------------------------------------------------------------------------

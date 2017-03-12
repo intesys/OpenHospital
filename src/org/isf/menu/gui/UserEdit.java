@@ -228,15 +228,37 @@ public class UserEdit extends JDialog {
 			okButton = new JButton();
 			okButton.setText(MessageBundle.getMessage("angal.common.ok"));  // Generated
 			okButton.addActionListener(new java.awt.event.ActionListener() {
+                            
+                                //----------------------------------------Bug Fix-------------------------------------
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					if (nameTextField.getText().equals("")){
+					
+                        
+                     
+                     
+                     //////////////////////////////////////////////////////////////// 
+                                    
+                     String userName = nameTextField.getText();
+                     if (userName.equals("")){
 						JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.menu.pleaseinsertavalidusername"));
 						return;
-					}
-					char[] password = pwdTextField.getPassword();
-					char[] repeatPassword = pwd2TextField.getPassword();
 					
-					if (insert) {
+                     }
+			
+                     user.setUserName(userName);
+                     
+                     ////////////////////////////////////////////////////////////////////////////////
+                     user.setDesc(descriptionTextField.getText());
+                     UserBrowsingManager manager = new UserBrowsingManager();
+                     boolean result = false;
+                     
+                     ///////////////////////////////////////////////////////////////////////////////////////
+                     if(insert) {
+                         
+                     
+                                                char[] password = pwdTextField.getPassword();
+		                                char[] repeatPassword = pwd2TextField.getPassword();
+					
+		    
 						if (Arrays.equals(password, new char[0])){
 							JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.menu.pleaseinsertapassword"));
 							return;
@@ -249,44 +271,66 @@ public class UserEdit extends JDialog {
 							JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.menu.passwordincorrectpleaseretype"));
 							return;
 						}
-					}
-					UserBrowsingManager manager = new UserBrowsingManager();
-					if (insert) {
-						String hashed = BCrypt.hashpw(new String(password), BCrypt.gensalt());
-						user.setUserGroupName(((UserGroup)typeComboBox.getSelectedItem()));
-						user.setUserName(nameTextField.getText());
-						user.setPasswd(hashed);
-						user.setDesc(descriptionTextField.getText());
-					} else {
-						user.setUserGroupName((UserGroup)typeComboBox.getSelectedItem());
-						user.setUserName(nameTextField.getText());
-						user.setDesc(descriptionTextField.getText());
-					}
+                                                
+                                                String hashed = BCrypt.hashpw(new String(password), BCrypt.gensalt());
+                                                user.setPasswd(hashed);
+                                                user.setUserGroupName((UserGroup)typeComboBox.getSelectedItem());
 					
-					boolean result = false;
-					if (insert) {      // inserting
-						//System.out.println("saving... "+user);
-						result = manager.newUser(user);
+                                                result = manager.newUser(user);
 						if (result) {
-                           fireUserInserted(user);
-                        }
-                    } else {                          // updating
-						result = manager.updateUser(user);
-						if (result) {
-							fireUserUpdated();
-                        }
-					}
-					if (!result) JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.menu.thedatacouldnotbesaved"));
+                           
+                                                     fireUserInserted(user);
+                                                     
+                                                     Arrays.fill(password, '0');
+                    	                             Arrays.fill(repeatPassword, '0');
+                        
+                                                }
+                     
+                     }
+					
+                                        
+                  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+                   else        {
+                         
+                                               user.setUserGroupName((UserGroup)typeComboBox.getSelectedItem());
+                                               
+                                               result = manager.updateUser(user);
+						
+                                                
+                                              if (result) {
+							
+                                                  fireUserUpdated();
+                        
+                                              }
+                         
+                    }
+                     
+                     
+                   
+                   if (!result) 
+                        JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.menu.thedatacouldnotbesaved"));
                     else {
-                    	Arrays.fill(password, '0');
-                    	Arrays.fill(repeatPassword, '0');
+                        
+                        
+                        
                     	dispose();
                     }
-                }
-			});
-		}
-		return okButton;
-	}
+                   
+                  
+               
+                                
+              }//----------------------------------------------------------------------------------------------
+			
+           });
+
+          }
+		
+        return okButton;
+	
+       }
+
+					
 
 	/**
 	 * This method initializes descriptionTextField	

@@ -4,3 +4,5 @@
 bin
 logs
 /target/
+!/remote_svcs/
+!/local_svcs/

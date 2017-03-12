@@ -54,37 +54,50 @@ public class DicomViewGui extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	// status of fremereader
-	private int patID = -1;
-	private Patient ohPatient = null;
-	private String serieNumber = "";
-	private Long[] frames = null;
+	
 
 	// status of frame
-	private int frameIndex = 0;
+	
 	private BufferedImage tmpImg = null;
-	private DicomObject tmpDicom = null;
-	private FileDicom tmpDbFile = null;
+        private FileDicom tmpDbFile = null;
+        private JSlider jSliderFrame = null;
+	
 
 	// GUI
 	private JPanel jPanelHeader = null;
-	private JPanel jPanelCenter = null;
+	
 	private JPanel jPanelFooter = null;
-	private JSlider jSliderZoom = null;
-	private JSlider jSliderFrame = null;
+	
 	
 	// GUI parameters
 	private int x = -1;
 	private int y = -1;
 	private int totX = -1;
 	private int totY = -1;
-	private final static Color colScr = Color.LIGHT_GRAY;
-	private final static int VGAP = 15;
+	
 
 	/**
 	 * Construct a new detail for DICOM image
 	 * 
 	 * @param dettaglio
+         * 
+         * 
 	 */
+        
+        //-------------------------------------------------------Radiology-----------------------------------
+        
+        protected int patID = -1;
+	protected Patient ohPatient = null;
+	protected String serieNumber = "";
+	protected Long[] frames = null;
+        protected int frameIndex = 0;
+        protected DicomObject tmpDicom = null;
+        protected JPanel jPanelCenter = null;
+        protected JSlider jSliderZoom = null;
+        protected final static Color colScr = Color.LIGHT_GRAY;
+	protected final static int VGAP = 15;
+        
+        //-----------------------------------------------------------------------------------------------------
 	public DicomViewGui(Patient patient, String serieNumber) {
 
 		this.patID = (patient != null ? (patient.getAge()) : -1);
@@ -212,7 +225,8 @@ public class DicomViewGui extends JPanel {
 
 	}
 
-	private void reInitComponent() {
+        //-----------------------------------------------------------Radiology---------------------------------------
+	protected void reInitComponent() {
 		if (patID <= 0) {
 			// centro = new JScrollPane();
 			jPanelCenter = new JPanel();
@@ -252,6 +266,7 @@ public class DicomViewGui extends JPanel {
 		jSliderZoom.setValue(100);
 	}
 
+        //----------------------------------------------------------------------------------------------------------
 	// DRAWS METHODS
 
 	/**
@@ -308,10 +323,15 @@ public class DicomViewGui extends JPanel {
 
 		// draws info
 
-		drawPatientUpRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
-		drawInfoFrameBottomLeft(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
-		drawStudyUpRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
-		drawSerieBottomRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+                //------------------------------------------------Radiology-----------------------------------------
+		//drawPatientUpRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+		//drawInfoFrameBottomLeft(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+		//drawStudyUpRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+		//drawSerieBottomRight(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+
+                drawInfo(canvas, imageCanvas.getWidth(), imageCanvas.getHeight());
+                
+                //---------------------------------------------------------------------------------------------------
 
 		JLabel centerImgLabel = new JLabel(new ImageIcon(imageCanvas));
 		centerPanel.add(centerImgLabel, BorderLayout.CENTER);
@@ -319,7 +339,21 @@ public class DicomViewGui extends JPanel {
 		return centerPanel;
 	}
 
-	private void drawQuadrant(Graphics g, int h, int w, Color c) {
+        //-------------------------------------------------------Radiology--------------------------------------
+        protected void drawInfo(Graphics2D canvas, int width, int height) {  
+ 		             
+ 		             
+ 		           drawPatientUpRight(canvas, width, height);  
+ 		           drawInfoFrameBottomLeft(canvas, width, height);  
+ 		           drawStudyUpRight(canvas, width, height);  
+ 		           drawSerieBottomRight(canvas, width, height);  
+ 		             
+ 		             
+ 		             
+ 		       
+        }
+
+	protected void drawQuadrant(Graphics g, int h, int w, Color c) {
 
 		Color originale = g.getColor();
 		g.setColor(c);
@@ -330,6 +364,7 @@ public class DicomViewGui extends JPanel {
 		g.setColor(originale);
 	}
 
+        //----------------------------------------------------------------------------------------------------
 	private void drawPatientUpRight(Graphics2D canvas, int w, int h) {
 		Color orig = canvas.getColor();
 		canvas.setColor(colScr);
@@ -376,7 +411,8 @@ public class DicomViewGui extends JPanel {
 		canvas.setColor(orig);
 	}
 
-	private void drawInfoFrameBottomLeft(Graphics2D canvas, int w, int h) {
+        //----------------------------------------------------------------Radiology-------------------------------------
+	protected void drawInfoFrameBottomLeft(Graphics2D canvas, int w, int h) {
 
 		Color orig = canvas.getColor();
 		int hi = h - 20;
@@ -389,7 +425,7 @@ public class DicomViewGui extends JPanel {
 		canvas.setColor(orig);
 	}
 
-	private void drawStudyUpRight(Graphics2D canvas, int w, int h) {
+	protected void drawStudyUpRight(Graphics2D canvas, int w, int h) {
 
 		Color orig = canvas.getColor();
 		String txt = "";
@@ -422,7 +458,7 @@ public class DicomViewGui extends JPanel {
 		canvas.setColor(orig);
 	}
 
-	private void drawSerieBottomRight(Graphics2D canvas, int w, int h) {
+	protected void drawSerieBottomRight(Graphics2D canvas, int w, int h) {
 		Color orig = canvas.getColor();
 		int ws = w - 200;
 		int hi = h - 20;
@@ -445,7 +481,7 @@ public class DicomViewGui extends JPanel {
 	 * 
 	 * @return
 	 */
-	private void refreshFrame() {
+	protected void refreshFrame() {
 		Long id = frames[frameIndex];
 		tmpDbFile = DicomManagerFactory.getManager().loadDettaglio(id, patID, serieNumber);
 		getImageFromDicom(tmpDbFile);
@@ -457,7 +493,7 @@ public class DicomViewGui extends JPanel {
 	 * @param dett
 	 * @return
 	 */
-	private void getImageFromDicom(FileDicom dett) {
+	protected void getImageFromDicom(FileDicom dett) {
 		try {
 			tmpImg = null;
 			Iterator<?> iter = ImageIO.getImageReadersByFormatName("DICOM");
@@ -485,6 +521,7 @@ public class DicomViewGui extends JPanel {
 		}
 	}
 
+        //---------------------------------------------------------------------------------------------------------
 	private void refreshPan() {
 
 		jPanelCenter.removeAll();
@@ -492,13 +529,15 @@ public class DicomViewGui extends JPanel {
 		validate();
 	}
 
-	private void refreshZoom() {
+        //----------------------------------------------Radiology-------------------------------------------------------
+	public void refreshZoom() {
 
 		jPanelCenter.removeAll();
 		jPanelCenter.add(composeCenter(jPanelCenter.getWidth(), jPanelCenter.getHeight(), true));
 		validate();
 	}
 
+        //-----------------------------------------------------------------------------------------------------
 	/**
 	 * Set image in frame viewer
 	 * 

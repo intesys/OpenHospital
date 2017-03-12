@@ -23,9 +23,7 @@ FOR %%A IN (%OH_LIB%\*.jar) DO (
 	set CLASSPATH=!CLASSPATH!;%%A
 )
 
-FOR %%A IN (%OH_LIB%\dicom\*.jar) DO (
-	set CLASSPATH=!CLASSPATH!;%%A
-)
+
 
 FOR %%A IN (%OH_LIB%\dicom\dcm4che\*.jar) DO (
 	set CLASSPATH=!CLASSPATH!;%%A
@@ -34,6 +32,7 @@ FOR %%A IN (%OH_LIB%\dicom\dcm4che\*.jar) DO (
 FOR %%A IN (%OH_LIB%\dicom\jai\*.jar) DO (
 	set CLASSPATH=!CLASSPATH!;%%A
 )
+
 
 set CLASSPATH=%CLASSPATH%;%OH_BUNDLE%
 set CLASSPATH=%CLASSPATH%;%OH_RESOURCE%
@@ -46,4 +45,5 @@ cd /d %OH_HOME%\
 REM set JAVA=C:\PROGRA~2\Java\jdk1.6.0_29\bin\java.exe
 @echo on
 REM start /min %JAVA_HOME%\java -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
-start /min %JAVA% -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
+REM start /min %JAVA% -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
+start /min "" "%JAVA7_HOME%\bin\java.exe" -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu

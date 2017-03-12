@@ -75,6 +75,104 @@ public class DicomIoOperations
 	 * @return true if success
 	 * @throws OHException 
 	 */
+        
+        //-------------------------------------------Radiology---------------------------------------------------------
+        
+        public boolean existByUID(FileDicom dicom)  {  
+ 		 
+                       
+                       DbJpaUtil jpa = new DbJpaUtil(); 
+		       ArrayList<Object> params = new ArrayList<Object>();
+                       boolean exist = false;
+		       
+                       try {
+                       
+                           jpa.beginTransaction();
+		
+                           String query = " SELECT * FROM DICOM WHERE DM_FILE_ST_UID = ? AND DM_FILE_SER_UID = ? AND DM_FILE_INST_UID = ?";
+		       	
+		           jpa.createQuery(query, FileDicom.class, false);
+                       
+                           params.add(dicom.getDicomStudyId());  
+ 		           params.add(dicom.getDicomSeriesUID());  
+ 		           params.add(dicom.getDicomInstanceUID()); 
+		       
+		
+		           jpa.setParameters(params, false);
+		      
+                           List<FileDicom> dicomList = (List<FileDicom>)jpa.getList();
+                           
+                           exist = (dicomList.size() > 0);
+		
+		           jpa.commitTransaction();
+
+		           
+                           
+                           
+                       }
+                       catch(OHException exception) {}
+                       
+                       return exist;
+                       
+        }
+                           
+                       
+                       
+                       
+        
+        public FileDicom loadFile(Long idFile) {  
+ 		       if (idFile == null)  
+ 		           return null;  
+                       else {
+                           
+                           try {
+ 		           
+                               return loadDettaglio(idFile.longValue(), -1, null);  
+                               
+                           }
+                           
+                           catch(OHException e) {
+                               
+                               return null;
+                           }
+                       }
+        }  
+        
+        public boolean deleteFile(long fileID) throws OHException {
+            
+            DbJpaUtil jpa = new DbJpaUtil(); 
+	    ArrayList<Object> params = new ArrayList<Object>();
+	    boolean result = true;
+        		
+           
+	    jpa.beginTransaction();		
+
+		try {
+			jpa.createQuery("DELETE FROM DICOM where DM_FILE_ID = ?", FileDicom.class, false);
+			params.add(fileID);
+			jpa.setParameters(params, false);
+			jpa.executeUpdate();
+		}  catch (OHException e) {
+			result = false;
+                        throw new OHException(MessageBundle.getMessage("angal.sql.problemsoccurredwiththesqlistruction"), e);
+			
+		   } 	
+
+               
+		
+               jpa.commitTransaction();	
+                    
+                
+                
+                
+                
+               
+		
+        return result;
+            
+        }
+        
+        //-------------------------------------------------------------------------------------------
 	public boolean deleteSerie(
 			int idPaziente, 
 			String numeroSerie) throws OHException 
@@ -109,6 +207,8 @@ public class DicomIoOperations
 	 * @return, FileDicomDettaglio
 	 * @throws OHException 
 	 */
+        
+       
 	public FileDicom loadDettaglio(
 			Long idFile, 
 			int idPaziente, 
@@ -193,6 +293,11 @@ public class DicomIoOperations
 	 * @throws OHException 
 	 */
 
+        
+        
+        
+        
+        
 	@SuppressWarnings("unchecked")
 	public boolean exist(
 			FileDicom dicom) throws OHException 
@@ -258,16 +363,17 @@ public class DicomIoOperations
 	 * @param dicom
 	 * @throws OHException 
 	 */
-	public void saveFile(
+	public FileDicom saveFile(
 			FileDicom dicom) throws OHException 
 	{
 		DbJpaUtil jpa = new DbJpaUtil(); 
 		
 		
 		jpa.beginTransaction();	
-		jpa.merge(dicom);
+		dicom = (FileDicom)jpa.merge(dicom);
     	jpa.commitTransaction();
+        return dicom;
     	
-    	return;
+    	
 	}
 }

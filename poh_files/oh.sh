@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSQL_DIR="mysql-5.0.51a-linux-i686"
-JAVA_DIR="jre1.6.0_45"
+JAVA_DIR="jre1.7.0_45"
 OH_DIR="oh-1.8.0"
 
 where_i_am=$(pwd)

@@ -36,6 +36,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+//--------------------------------------------------------------Radiology--------------------------------------------
+import org.isf.utils.services.ReportService;
+import org.isf.utils.services.RemoteServices;
+import org.isf.utils.services.DbUpdateSubscriber;
+
+//--------------------------------------------------------------------------------------------------------------
+
 public class MainMenu extends JFrame implements ActionListener, Login.LoginListener, SubMenu.CommandListener {
 	private static final long serialVersionUID = 7620582079916035164L;
 	private boolean flag_Xmpp = false;
@@ -73,6 +80,15 @@ public class MainMenu extends JFrame implements ActionListener, Login.LoginListe
 	public static String getUser() {
 		return myUser.getUserName();
 	}
+        
+        //--------------------------------------------------Radiology----------------------------------------------
+        
+        public static String getUserDesc() {  
+ 		       return myUser.getDesc();  
+ 		   
+        }
+        
+        //-------------------------------------------------------------------------------------------------------
 
 	private int minButtonSize = 0;
 
@@ -263,11 +279,24 @@ public class MainMenu extends JFrame implements ActionListener, Login.LoginListe
 
 		setResizable(false);
 		setVisible(true);
+                
+                //--------------------------------------------------Radiology---------------------------------------
+                ReportService.doStart();
+		RemoteServices.doStart();
+                
+                //-----------------------------------------------------------------------------------------------
 	}
 
 	private void actionExit(int status) {
 		if (status == 2)
 			logger.info("Login failed.");
+                
+                //--------------------------------------------Radiology-----------------------------------------
+                ReportService.doStop();
+                DbUpdateSubscriber.end();
+                
+                //--------------------------------------------------------------------------------------------
+                
 		logger.info("\n\n=====================\n OpenHospital closed \n=====================\n");
 		System.exit(status);
 	}

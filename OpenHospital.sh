@@ -3,7 +3,7 @@
 ######## Environment check:
 
 # check for java home
-JAVA_EXE=$JAVA_HOME/bin/java
+JAVA_EXE=$JAVA7_HOME/bin/java
 
 if [ -z $JAVA_HOME ]; then
   echo "JAVA_HOME not found. Please set it up properly."
@@ -76,6 +76,9 @@ do
     OPENHOSPITAL_CLASSPATH="$i":$OPENHOSPITAL_CLASSPATH
   fi
 done
+
+
+
 
 DIRLIBS=${EXEDIR}/lib/*.zip
 for i in ${DIRLIBS}

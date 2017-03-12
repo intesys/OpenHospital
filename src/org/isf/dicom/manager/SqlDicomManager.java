@@ -21,6 +21,13 @@ public class SqlDicomManager implements DicomManagerInterface
 	/**
 	 * Constructor
 	 */
+    
+        //----------------------------------------------------Radiology-----------------------------
+    
+        public SqlDicomManager() {
+	
+        }
+        //---------------------------------------------------------------------------------------
 	public SqlDicomManager(Properties externalPrp) {
 	}
 	
@@ -75,6 +82,24 @@ public class SqlDicomManager implements DicomManagerInterface
     * @param dicom, the detail od dicom
     * @return true if file exist
     */
+    
+    //-------------------------------------------------Radiology------------------------------------------------
+    
+    public boolean existByUID(FileDicom dicom)  {  
+        
+        return new DicomIoOperations().existByUID(dicom);
+    }
+    
+    public FileDicom loadFile(Long idFile) { 
+        
+        return new DicomIoOperations().loadFile(idFile);
+    }
+    
+    public boolean deleteFile(long fileID) throws OHException {
+        
+        return new DicomIoOperations().deleteFile(fileID);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public boolean exist(FileDicom dicom)
     {
     	DicomIoOperations ioOperations = new DicomIoOperations();
@@ -163,6 +188,7 @@ public class SqlDicomManager implements DicomManagerInterface
     {
     	DicomIoOperations ioOperations = new DicomIoOperations();
     	
+        
 		
     	try {
 			ioOperations.saveFile(dicom);
@@ -170,5 +196,7 @@ public class SqlDicomManager implements DicomManagerInterface
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        return;
     }  
 }

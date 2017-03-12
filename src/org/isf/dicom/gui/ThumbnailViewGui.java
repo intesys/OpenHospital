@@ -40,10 +40,17 @@ public class ThumbnailViewGui extends JList {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int patID = -1;
-	private DicomGui dicomViewer = null;
-	private DicomThumbsModel dicomThumbsModel;
-	boolean thumbnailViewEnabled = true;
+        private int patID = -1;
+
+        
+        //----------------------------------------------------------Radiology------------------------------------
+        
+       
+	protected DicomGui dicomViewer = null;
+	protected DicomThumbsModel dicomThumbsModel;
+        
+        //-------------------------------------------------------------------------------------------------------
+	public boolean thumbnailViewEnabled = true;
 
 	/**
 	 * Initialize Component
@@ -100,13 +107,27 @@ public class ThumbnailViewGui extends JList {
 		});
 	}
 
+        //---------------------------------------------------------Radiology--------------------------------
+        protected void prepare() { 
+ 		 
+ 		 
+ 		               
+           dicomViewer.enableLoadButton();  
+           thumbnailViewEnabled = true;
+           dicomViewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		       
+ 		 
+ 		     
+ 
+        }  
 	public void initialize() {
 		loadDicomFromDB();
-		dicomViewer.enableLoadButton();
-		thumbnailViewEnabled = true;
-		dicomViewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                prepare();
+		//dicomViewer.enableLoadButton();
+		//thumbnailViewEnabled = true;
+		//dicomViewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
+        //---------------------------------------------------------------------------------
 	public void disableLoadButton() {
 		thumbnailViewEnabled = false;
 		dicomViewer.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -120,10 +141,14 @@ public class ThumbnailViewGui extends JList {
 	private void enableDeleteButton(FileDicom selectedDicom) {
 		dicomViewer.enableDeleteButton(selectedDicom);
 	}
+        
+        //-----------------------------------------------Radiology---------------------------------------------
 
-	private void detail() {
+	protected void detail() {
 		dicomViewer.detail();
 	}
+        
+        //------------------------------------------------------------------------------------------------------
 
 	private void loadDicomFromDB() {
 		FileDicom[] fdb = DicomManagerFactory.getManager().loadFilesPaziente(patID);
@@ -257,7 +282,8 @@ public class ThumbnailViewGui extends JList {
 		return dicomThumbsModel;
 	}
 
-	private String getTooltipText(FileDicom dicomFile) {
+        //------------------------------------------------------------Radiology--------------------------------------
+	protected String getTooltipText(FileDicom dicomFile) {
 		String separator = ": ";
 		String newline = " <br>";
 		StringBuilder rv = new StringBuilder("<html>");
@@ -279,14 +305,16 @@ public class ThumbnailViewGui extends JList {
 		return rv.toString();
 	}
 
-	private String sanitize(String val) {
+	protected String sanitize(String val) {
 		if (isValorized(val))
 			return val;
 		else
 			return "";
 	}
 
-	private boolean isValorized(String val) {
+	protected boolean isValorized(String val) {
 		return (val != null && val.trim().length() > 0);
 	}
+        
+        //------------------------------------------------------------------------------------------------------
 }

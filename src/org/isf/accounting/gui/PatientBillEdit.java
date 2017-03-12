@@ -129,6 +129,10 @@ public class PatientBillEdit extends JDialog implements SelectionListener {
 	private JButton jButtonAddExam;
 	private JButton jButtonAddOther;
 	private JButton jButtonAddPayment;
+        
+        //----------------------------------------------Radiology------------------------------------------------//
+        private JButton jButtonAddRadiology; 
+        //--------------------------------------------------------------------------------------------------------
 	private JPanel jPanelButtons;
 	private JPanel jPanelDate;
 	private JPanel jPanelPatient;
@@ -761,6 +765,10 @@ public class PatientBillEdit extends JDialog implements SelectionListener {
 			jPanelButtonsBill.add(getJButtonAddMedical());
 			jPanelButtonsBill.add(getJButtonAddOperation());
 			jPanelButtonsBill.add(getJButtonAddExam());
+                        //---------------------------------------Radiology---------------------------------
+                        jPanelButtonsBill.add(getJButtonAddRadiology()); 
+                        //--------------------------------------------------------------------------------
+                        
 			jPanelButtonsBill.add(getJButtonAddOther());
 			jPanelButtonsBill.add(getJButtonAddCustom());
 			jPanelButtonsBill.add(getJButtonRemoveItem());
@@ -1434,6 +1442,49 @@ public class PatientBillEdit extends JDialog implements SelectionListener {
 		}
 		return jButtonAddExam;
 	}
+        
+        //--------------------------------------------------------Radiology------------------------------------------
+        private JButton getJButtonAddRadiology() {  
+ 		             
+ 		             
+ 		           if (jButtonAddRadiology == null) {  
+ 		           jButtonAddRadiology = new JButton();  
+ 		           jButtonAddRadiology.setText(MessageBundle.getMessage("angal.newbill.radiology")); //$NON-NLS-1$  
+ 		           jButtonAddRadiology.setMnemonic(KeyEvent.VK_R);  
+ 		           jButtonAddRadiology.setMaximumSize(new Dimension(ButtonWidthBill, ButtonHeight));  
+ 		           jButtonAddRadiology.setHorizontalAlignment(SwingConstants.LEFT);  
+ 		           jButtonAddRadiology.setIcon(new ImageIcon("rsc/icons/plus_button.png")); //$NON-NLS-1$  
+ 		           jButtonAddRadiology.addActionListener(new ActionListener() {  
+ 		 
+ 		               public void actionPerformed(ActionEvent e) {  
+ 		                    
+ 		                   ArrayList<Price> radArray = new ArrayList<Price>();  
+ 		                   for (Price price : prcListArray) {  
+ 		                        
+ 		                       if (price.getGroup().equals("RAD")) //$NON-NLS-1$  
+ 		                           radArray.add(price);  
+ 		                   }  
+ 		                    
+ 		                   Icon icon = new ImageIcon("rsc/icons/radiology_dialog.png"); //$NON-NLS-1$  
+ 		                   Price rad = (Price)JOptionPane.showInputDialog(  
+ 		                                       PatientBillEdit.this,  
+ 		                                       MessageBundle.getMessage("angal.newbill.selectaradiology"), //$NON-NLS-1$  
+ 		                                       MessageBundle.getMessage("angal.newbill.radiology"), //$NON-NLS-1$  
+ 		                                       JOptionPane.PLAIN_MESSAGE,  
+ 		                                       icon,  
+ 		                                       radArray.toArray(),  
+ 		                                       ""); //$NON-NLS-1$  
+ 		                   addItem(rad, 1, true);  
+ 		               }  
+ 		           });  
+ 		       }  
+ 		       return jButtonAddRadiology;  
+ 		       
+         
+         
+         }
+        
+        //-------------------------------------------------------------------------------------------------------
 
 	private JButton getJButtonAddOperation() {
 		if (jButtonAddOperation == null) {

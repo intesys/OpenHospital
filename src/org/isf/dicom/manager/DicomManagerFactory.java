@@ -22,6 +22,8 @@ public class DicomManagerFactory {
 	/**
 	 * return the manager for DICOM acquired files
 	 */
+        
+        
 	public synchronized static DicomManagerInterface getManager() {
 
 		if (instance == null) {

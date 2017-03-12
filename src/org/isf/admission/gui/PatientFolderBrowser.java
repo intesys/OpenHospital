@@ -49,7 +49,15 @@ import org.isf.utils.table.TableSorter;
 import org.isf.ward.manager.WardBrowserManager;
 import org.isf.ward.model.Ward;
 
+//---------------------------------------------------------------------Radiology---------------------------------------
+import java.text.SimpleDateFormat;
 
+import org.isf.radiology.gui.RadiologyExamBrowser;
+import org.isf.radiology.gui.RadiologyExamBrowserTablePanel;
+import org.isf.radiology.manager.RadiologyExamManager;
+import org.isf.radiology.model.RadiologyExam;
+
+//-------------------------------------------------------------------------------------------------------------------
 
 
 /** 
@@ -170,12 +178,13 @@ public class PatientFolderBrowser extends ModalJFrame implements
 	private ArrayList<Ward> ward;
 	private ArrayList<Opd> opdList;
 	
+        //---------------------------------------------------------------Radiology---------------------------------------
 	private String[] pColums = {MessageBundle.getMessage("angal.common.datem"),MessageBundle.getMessage("angal.admission.wards"), MessageBundle.getMessage("angal.admission.diagnosisinm"), MessageBundle.getMessage("angal.admission.diagnosisoutm"), MessageBundle.getMessage("angal.admission.statusm") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-	private int[] pColumwidth = {120, 150, 200, 200, 120 };
-	
-	private String[] plColums = { MessageBundle.getMessage("angal.common.datem"), MessageBundle.getMessage("angal.lab.examm"), MessageBundle.getMessage("angal.lab.codem"),MessageBundle.getMessage("angal.lab.resultm") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-	private int[] plColumwidth = { 150, 200, 50, 200 };
-
+	private int[] pColumwidth = {150, 150, 200, 200, 120 };
+	private String[] plColums = { MessageBundle.getMessage("angal.exam.type.lab.id"), MessageBundle.getMessage("angal.common.datem"), MessageBundle.getMessage("angal.lab.examm"),MessageBundle.getMessage("angal.lab.resultm") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4
+        private int[] plColumwidth = {100, 100, 200, 50 };
+        private AdmissionRadiologyExamPanel admissionRadiologyExamPanel;
+        //---------------------------------------------------------------------------------------------------------------
 	private DefaultTableModel admModel;
 	private DefaultTableModel labModel;
 	TableSorter sorter;
@@ -190,7 +199,6 @@ public class PatientFolderBrowser extends ModalJFrame implements
 
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPaneLab;
-	
 	private JPanel tablesPanel=null;
 		
 	private JPanel getTablesPanel(){
@@ -213,7 +221,9 @@ public class PatientFolderBrowser extends ModalJFrame implements
 		
 		scrollPane = new JScrollPane(admTable);
 		scrollPane.setPreferredSize(new Dimension(500,200));
-		tablesPanel.add(scrollPane, BorderLayout.CENTER);
+                //---------------------------------------------------Radiology-----------------------------------------
+		tablesPanel.add(scrollPane, BorderLayout.NORTH);
+                //----------------------------------------------------------------------------------------------------
 		
 		//Alex: added sorter, for Java6 only
 //		adm_sorter = new TableRowSorter<AdmissionBrowserModel>((AdmissionBrowserModel) admTable.getModel());
@@ -237,7 +247,14 @@ public class PatientFolderBrowser extends ModalJFrame implements
 				
 		scrollPaneLab = new JScrollPane(labTable);
 		scrollPaneLab.setPreferredSize(new Dimension(500,200));
-		tablesPanel.add(scrollPaneLab, BorderLayout.SOUTH);		
+                //------------------------------------------------Radiology-------------------------------------------
+		tablesPanel.add(scrollPaneLab, BorderLayout.CENTER);
+                admissionRadiologyExamPanel = new AdmissionRadiologyExamPanel();
+                JScrollPane scrollPaneRadiologyExam = new JScrollPane(admissionRadiologyExamPanel.getTable());
+                scrollPaneRadiologyExam.setPreferredSize(new Dimension(500,200));
+	        tablesPanel.add(scrollPaneRadiologyExam, BorderLayout.SOUTH);
+                //---------------------------------------------------------------------------------------------------
+		
 		
 		ListSelectionModel listSelectionModel = admTable.getSelectionModel();
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -299,10 +316,31 @@ public class PatientFolderBrowser extends ModalJFrame implements
 							labTable.addRowSelectionInterval(i, i);
 							
 						}
+					}//
+				
+                                        //---------------------------------------------Radiology--------------------------
+                                        JTable radiologyExamTable = admissionRadiologyExamPanel.getTable();
+                                        radiologyExamTable.clearSelection();
+                                        int noRows = admissionRadiologyExamPanel.getRowCount();
+					for (int i = 0; i < noRows; i++) {
+						RadiologyExam radiologyExam = (RadiologyExam) admissionRadiologyExamPanel.getValueAt(i, -1);
+						Date examDate = radiologyExam.getDate().getTime();
+						if (!examDate.before(startDate.getTime()) &&
+								(null == endDate ? true : !examDate.after(endDate.getTime())))  {
+							
+							radiologyExamTable.addRowSelectionInterval(i, i);
+							
+						}
 					}
-				}
-			}
-		});
+                                        
+                                        //------------------------------------------------------------------------------
+				}//end of root if
+			}//end of method
+		}); //end of class
+		
+            
+			
+		
 		
 		return tablesPanel;
 	}
@@ -314,8 +352,10 @@ public class PatientFolderBrowser extends ModalJFrame implements
 			if (MainMenu.checkUserGrants("btnpatfoldadmrpt")) buttonPanel.add(getAdmReportButton(), null); //$NON-NLS-1$
 			if (MainMenu.checkUserGrants("btnpatfoldadmrpt")) buttonPanel.add(getDisReportButton(), null); //$NON-NLS-1$
 			if (MainMenu.checkUserGrants("btnpatfoldpatrpt")) buttonPanel.add(getLaunchReportButton(), null); //$NON-NLS-1$
-            if (GeneralData.DICOMMODULEENABLED && MainMenu.checkUserGrants("btnpatfolddicom")) buttonPanel.add(getDICOMButton(), null); //$NON-NLS-1$
-			buttonPanel.add(getCloseButton(), null);
+                        //-----------------------------------------------------Radiology-------------------------------
+                        if (GeneralData.DICOMMODULEENABLED && MainMenu.checkUserGrants("btnpatfolddicom")) buttonPanel.add(getAdmissionRadiologyExamButton(), null); //$NON-NLS-1$
+			//---------------------------------------------------------------------------------------------
+                        buttonPanel.add(getCloseButton(), null);
 		return buttonPanel;
 	}
 
@@ -323,7 +363,9 @@ public class PatientFolderBrowser extends ModalJFrame implements
 	private JButton admReportButton = null;
 	private JButton disReportButton = null;
 	private JButton launchReportButton = null;
-    private JButton dicomButton = null;
+        //-----------------------------------------------------------------------Radiology--------------------------
+        private JButton admissionRadiologyExamButton = null;
+        //----------------------------------------------------------------------------------------------------------
 	private JButton closeButton=null;
 
 	private JButton getOpdReportButton() {
@@ -431,8 +473,10 @@ public class PatientFolderBrowser extends ModalJFrame implements
 			launchReportButton.setText(MessageBundle.getMessage("angal.admission.patientfolder.launchreport")); //$NON-NLS-1$
 			launchReportButton.addActionListener(new ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// GenericReportMY rpt3 = new GenericReportMY(new Integer(6), new Integer(2008), "hmis108_adm_by_diagnosis_in");
+					
+                                        // GenericReportMY rpt3 = new GenericReportMY(new Integer(6), new Integer(2008), "hmis108_adm_by_diagnosis_in");
 					new GenericReportPatient(patient.getCode(), GeneralData.PATIENTSHEET);
+                                        
 				}
 			});
 		}
@@ -446,22 +490,48 @@ public class PatientFolderBrowser extends ModalJFrame implements
         dg = null;
     }
 
-    private JButton getDICOMButton() {
-		if (dicomButton == null) {
-			dicomButton = new JButton();
-			dicomButton.setMnemonic(KeyEvent.VK_D);
-			dicomButton.setText(MessageBundle.getMessage("angal.admission.patientfolder.dicom")); //$NON-NLS-1$
-			dicomButton.addActionListener(new ActionListener() {
+    //------------------------------------------------------------Radiology----------------------------------
+    private JButton getAdmissionRadiologyExamButton() {
+		if (admissionRadiologyExamButton == null) {
+			admissionRadiologyExamButton = new JButton();
+			admissionRadiologyExamButton.setMnemonic(KeyEvent.VK_R);
+			admissionRadiologyExamButton.setText(MessageBundle.getMessage("angal.admission.patientfolder.radiology")); //$NON-NLS-1$
+			admissionRadiologyExamButton.setEnabled(false);
+                        admissionRadiologyExamButton.addActionListener(new ActionListener() {
+                            
+                                //---ITERATION---//
 				public void actionPerformed(java.awt.event.ActionEvent e)
-                {
-                        if (dg==null)
-                            dg = new DicomGui(patient, PatientFolderBrowser.this);
-                }
+                
+                               {
+                                    // if (dg==null)
+                                         //dg = new DicomGui(patient, PatientFolderBrowser.this);
+                                    
+                                    
+                                  
+                                   
+                                   ArrayList<RadiologyExam> selectedRadiologyExams = new ArrayList<RadiologyExam>();
+                                   int selectedRow = admissionRadiologyExamPanel.getTable().getSelectedRow();
+                                   /*
+                                   int index = noRows;
+                                   
+                                   for(int i = 0; i < noRows; i++) {
+                                       index--;
+                                       selectedRadiologyExams.add((RadiologyExam)admissionRadiologyExamPanel.getValueAt(index,-1));
+                                       
+                                   }
+                                   */
+                                   selectedRadiologyExams.add((RadiologyExam)admissionRadiologyExamPanel.getValueAt(selectedRow,-1));
+                                   new RadiologyExamBrowser(patient, selectedRadiologyExams);
+                                    
+                
+                               }
 			});
 		}
-		return dicomButton;
+		return admissionRadiologyExamButton;
 	}
 
+    
+       //--------------------------------------------------------------------------------------------------------
     
 	
 	private JButton getCloseButton() {
@@ -654,26 +724,36 @@ public class PatientFolderBrowser extends ModalJFrame implements
 		}	
 		
 		
+                //------------------------------------------------------------Radiology-------------------------
 		public Object getValueAt(int r, int c) {
 			if (c == -1) {
 				return labList.get(r);
-			} else if (c == 0) {
+                                
+                                
+			} 
+                        
+                        else if(c==0) {
+                            return labList.get(r).getCode();
+                        }
+                        else if (c == 1) {
 				//System.out.println(labList.get(r).getExam().getExamtype().getDescription());
 				
 				Date examDate = labList.get(r).getExamDate().getTime();	
 				DateFormat currentDateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALIAN);
 				return currentDateFormat.format(examDate);
-			} else if (c == 1) {
+			} else if (c == 2) {
 				return labList.get(r).getExam().getDescription();
-			}else if (c == 2) {
-				return labList.get(r).getCode();
-			} else if (c == 3) {
+			}else if (c == 3) {
 				return labList.get(r).getResult();
-			}
+			} //else if (c == 4) {
+				//return labList.get(r).getResult();
+			//}
 			
 			return null;
 		}
 
+
+                //--------------------------------------------------------------------------------------------------
 
 
 
@@ -683,5 +763,115 @@ public class PatientFolderBrowser extends ModalJFrame implements
 			return false;
 		}
 	}
+        
+        //---------------------------------------------------------Radiology--------------------------------------------
+        private class AdmissionRadiologyExamPanel extends RadiologyExamBrowserTablePanel {
+            
+            
+           
+            AdmissionRadiologyExamPanel() {
+                
+               
+                super(new RadiologyExamManager().getRadiologyExams(patient.getCode()));
+                getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                
+                
+                     @Override
+                     public void valueChanged(ListSelectionEvent e) {
+                         
+                         if(!admissionRadiologyExamButton.isEnabled()) {
+                             admissionRadiologyExamButton.setEnabled(true);
+                        
+                         }
+                     }
+                
+              });
+		
+//			
+
+			
+                
+                
+            
+      }
+            
+            @Override
+            public int getColumnCount() {
+			return  pColumns.length;
+		
+            }
+            
+            @Override
+            public String getColumnName(int c) {
+			return pColums[c];
+		
+            }
+            
+            @Override
+            public int getRowCount() {
+			if (tableRadiologyExams == null)
+				return 0;
+			return tableRadiologyExams.size();
+		
+            }
+            
+            @Override
+		public boolean isCellEditable(int arg0, int arg1) {
+			
+			return false;
+		
+                }
+            
+            @Override
+            public Object getValueAt(int r, int c) {
+            
+                        
+			if (c == -1) {
+				return tableRadiologyExams.get(r);
+                                
+                                
+			} 
+                        
+                        else if(c==0) {
+                            return tableRadiologyExams.get(r).getCode();
+                        }
+                        else if (c == 1) {
+				
+				
+				Date examDate = tableRadiologyExams.get(r).getDate().getTime();	
+				DateFormat currentDateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALIAN);
+				return currentDateFormat.format(examDate);
+			} else if (c == 2) {
+				return tableRadiologyExams.get(r).getRadiology().getDescription();
+			}
+			
+			return null;
+		
+            }
+
+	
+            
+            
+           
+            
+            @Override
+            protected void setColumnsProperties() {
+                
+                pColumns = new String[]{ MessageBundle.getMessage("angal.exam.type.radiology.id"), MessageBundle.getMessage("angal.radiology.datem"), MessageBundle.getMessage("angal.radiology.scan")};
+                columnsVisible = new boolean[] {true, true, true};
+                pColumwidth = new int[] { 87, 65, 250};
+                maxWidth = new int[] {87, 65, 250};
+                columnsResizable = new boolean[] {true, true, true};
+                dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                selectionMode = ListSelectionModel.SINGLE_SELECTION;
+                
+            }
+            
+           
+            
+            
+        }
+        
+       //-------------------------------------------------------------------------------------------------------
 	
 }// class

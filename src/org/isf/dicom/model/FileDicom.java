@@ -172,6 +172,8 @@ public class FileDicom
 		this.dicomInstanceUID = dicomInstanceUID;
 		this.modality = modality;
 		this.dicomThumbnail = dicomThumbnail;
+                
+                resetNulls();
 	}
 	
 	/**
@@ -222,7 +224,8 @@ public class FileDicom
 	 *            the fileName to set
 	 */
 	public void setFileName(String fileName) {
-		this.fileName = fileName;
+                if(fileName != null)
+		  this.fileName = fileName;
 	}
 
 	/**
@@ -237,7 +240,8 @@ public class FileDicom
 	 *            the dicomAccessionNumber to set
 	 */
 	public void setDicomAccessionNumber(String dicomAccessionNumber) {
-		this.dicomAccessionNumber = dicomAccessionNumber;
+                if(dicomAccessionNumber !=null)
+		    this.dicomAccessionNumber = dicomAccessionNumber;
 	}
 
 	/**
@@ -252,7 +256,8 @@ public class FileDicom
 	 *            the dicomInstitutionName to set
 	 */
 	public void setDicomInstitutionName(String dicomInstitutionName) {
-		this.dicomInstitutionName = dicomInstitutionName;
+                if(dicomInstitutionName != null)
+		    this.dicomInstitutionName = dicomInstitutionName;
 	}
 
 	/**
@@ -267,7 +272,8 @@ public class FileDicom
 	 *            the dicomPatientID to set
 	 */
 	public void setDicomPatientID(String dicomPatientID) {
-		this.dicomPatientID = dicomPatientID;
+                if(dicomPatientID != null)
+		   this.dicomPatientID = dicomPatientID;
 	}
 
 	/**
@@ -282,7 +288,8 @@ public class FileDicom
 	 *            the dicomPatientName to set
 	 */
 	public void setDicomPatientName(String dicomPatientName) {
-		this.dicomPatientName = dicomPatientName;
+                if(dicomPatientName != null)
+		   this.dicomPatientName = dicomPatientName;
 	}
 
 	/**
@@ -297,7 +304,8 @@ public class FileDicom
 	 *            the dicomPatientAddress to set
 	 */
 	public void setDicomPatientAddress(String dicomPatientAddress) {
-		this.dicomPatientAddress = dicomPatientAddress;
+                if(dicomPatientAddress != null)
+		   this.dicomPatientAddress = dicomPatientAddress;
 	}
 
 	/**
@@ -312,7 +320,8 @@ public class FileDicom
 	 *            the dicomPatientAge to set
 	 */
 	public void setDicomPatientAge(String dicomPatientAge) {
-		this.dicomPatientAge = dicomPatientAge;
+                if(dicomPatientAge != null)
+		   this.dicomPatientAge = dicomPatientAge;
 	}
 
 	/**
@@ -327,7 +336,8 @@ public class FileDicom
 	 *            the dicomPatientSex to set
 	 */
 	public void setDicomPatientSex(String dicomPatientSex) {
-		this.dicomPatientSex = dicomPatientSex;
+                if(dicomPatientSex != null)
+		   this.dicomPatientSex = dicomPatientSex;
 	}
 
 	/**
@@ -342,7 +352,8 @@ public class FileDicom
 	 *            the dicomPatientBirthDate to set
 	 */
 	public void setDicomPatientBirthDate(String dicomPatientBirthDate) {
-		this.dicomPatientBirthDate = dicomPatientBirthDate;
+                if(dicomPatientBirthDate != null)
+		   this.dicomPatientBirthDate = dicomPatientBirthDate;
 	}
 
 	/**
@@ -357,7 +368,8 @@ public class FileDicom
 	 *            the dicomStudyId to set
 	 */
 	public void setDicomStudyId(String dicomStudyId) {
-		this.dicomStudyId = dicomStudyId;
+                if(dicomStudyId != null)
+		   this.dicomStudyId = dicomStudyId;
 	}
 
 	/**
@@ -372,7 +384,8 @@ public class FileDicom
 	 *            the dicomStudyDate to set
 	 */
 	public void setDicomStudyDate(String dicomStudyDate) {
-		this.dicomStudyDate = dicomStudyDate;
+                if(dicomStudyDate != null)
+		   this.dicomStudyDate = dicomStudyDate;
 	}
 
 	/**
@@ -387,7 +400,8 @@ public class FileDicom
 	 *            the dicomStudyDescription to set
 	 */
 	public void setDicomStudyDescription(String dicomStudyDescription) {
-		this.dicomStudyDescription = dicomStudyDescription;
+                if(dicomStudyDescription != null)
+		   this.dicomStudyDescription = dicomStudyDescription;
 	}
 
 	/**
@@ -402,7 +416,8 @@ public class FileDicom
 	 *            the dicomSeriesUID to set
 	 */
 	public void setDicomSeriesUID(String dicomSeriesUID) {
-		this.dicomSeriesUID = dicomSeriesUID;
+                if(dicomSeriesUID != null)
+		   this.dicomSeriesUID = dicomSeriesUID;
 	}
 
 	/**
@@ -417,7 +432,8 @@ public class FileDicom
 	 *            the dicomSeriesInstanceUID to set
 	 */
 	public void setDicomSeriesInstanceUID(String dicomSeriesInstanceUID) {
-		this.dicomSeriesInstanceUID = dicomSeriesInstanceUID;
+                if(dicomSeriesInstanceUID != null)
+		   this.dicomSeriesInstanceUID = dicomSeriesInstanceUID;
 	}
 
 	/**
@@ -432,7 +448,8 @@ public class FileDicom
 	 *            the dicomSeriesNumber to set
 	 */
 	public void setDicomSeriesNumber(String dicomSeriesNumber) {
-		this.dicomSeriesNumber = dicomSeriesNumber;
+                if(dicomSeriesNumber != null)
+		   this.dicomSeriesNumber = dicomSeriesNumber;
 	}
 
 	/**
@@ -447,7 +464,8 @@ public class FileDicom
 	 *            the dicomSeriesDescriptionCodeSequence to set
 	 */
 	public void setDicomSeriesDescriptionCodeSequence(String dicomSeriesDescriptionCodeSequence) {
-		this.dicomSeriesDescriptionCodeSequence = dicomSeriesDescriptionCodeSequence;
+                if(dicomSeriesDescriptionCodeSequence != null)
+		   this.dicomSeriesDescriptionCodeSequence = dicomSeriesDescriptionCodeSequence;
 	}
 
 	/**
@@ -462,7 +480,8 @@ public class FileDicom
 	 *            the dicomSeriesDate to set
 	 */
 	public void setDicomSeriesDate(String dicomSeriesDate) {
-		this.dicomSeriesDate = dicomSeriesDate;
+                if(dicomSeriesDate != null)
+		   this.dicomSeriesDate = dicomSeriesDate;
 	}
 
 	/**
@@ -477,7 +496,8 @@ public class FileDicom
 	 *            the dicomSeriesDescription to set
 	 */
 	public void setDicomSeriesDescription(String dicomSeriesDescription) {
-		this.dicomSeriesDescription = dicomSeriesDescription;
+                if(dicomSeriesDescription != null)
+		   this.dicomSeriesDescription = dicomSeriesDescription;
 	}
 
 	/**
@@ -492,7 +512,8 @@ public class FileDicom
 	 *            the dicomInstanceUID to set
 	 */
 	public void setDicomInstanceUID(String dicomInstanceUID) {
-		this.dicomInstanceUID = dicomInstanceUID;
+                if(dicomInstanceUID != null)
+		   this.dicomInstanceUID = dicomInstanceUID;
 	}
 
 	/**
@@ -590,7 +611,8 @@ public class FileDicom
 	 *            the modality to set
 	 */
 	public void setModality(String modality) {
-		this.modality = modality;
+                if(modality != null)
+		   this.modality = modality;
 	}
 	
 	/**
@@ -634,5 +656,32 @@ public class FileDicom
 	    }
 	  
 	    return this.hashCode;
-	}	
+	}
+        
+        private void resetNulls() {
+            
+            if(dicomAccessionNumber == null)dicomAccessionNumber = "";
+            if(dicomInstanceUID == null)dicomInstanceUID = "";
+            if(dicomInstitutionName == null)dicomInstitutionName = "";
+            if(dicomPatientAddress == null)dicomPatientAddress = "";
+            if(dicomPatientAge == null)dicomPatientAge = "";
+            if(dicomPatientBirthDate == null)dicomPatientBirthDate = "";
+            if(dicomPatientID == null) dicomPatientID = "";
+            if(dicomPatientName == null) dicomPatientName = "";
+            if(dicomPatientSex == null) dicomPatientSex = "";
+            if(dicomSeriesDate == null)dicomSeriesDate = "";
+            if(dicomSeriesDescription == null)dicomSeriesDescription = "";
+            if(dicomSeriesDescriptionCodeSequence == null)dicomSeriesDescriptionCodeSequence = "";
+            if(dicomSeriesInstanceUID == null)dicomSeriesInstanceUID = "";
+            if(dicomSeriesNumber == null)dicomSeriesNumber = "";
+            if(dicomSeriesUID == null)dicomSeriesUID = "";
+            if(dicomSeriesDate== null)dicomSeriesDate = "";
+            if(dicomStudyDescription == null) dicomStudyDescription = "";
+            if(dicomStudyId == null) dicomStudyId = "";
+            if(fileName == null) fileName = "";
+            if(modality == null)modality = "";
+            
+            
+            
+        }
 }
