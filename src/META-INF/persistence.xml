@@ -54,7 +54,7 @@
 		
 		<properties>
 	      	<!-- Configuring JDBC properties -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oh"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oh_radiology"/>
 			<property name="javax.persistence.jdbc.user" value="isf"/>
 			<property name="javax.persistence.jdbc.password" value="isf123"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

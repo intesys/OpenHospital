@@ -15,10 +15,10 @@
 #   lower_case_table_names = 1   
 
 
-drop database if exists oh;
-create database oh CHARACTER SET latin2 COLLATE latin2_general_ci;
+drop database if exists oh_radiology;
+create database oh_radiology CHARACTER SET latin2 COLLATE latin2_general_ci;
 
-use oh;
+use oh_radiology;
 
 
 --
