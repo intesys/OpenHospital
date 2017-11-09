@@ -1,17 +1,17 @@
 package org.isf.dlvrrestype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.dlvrrestype.model.DeliveryResultType;
 import org.isf.dlvrrestype.service.DeliveryResultTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Manager class for DeliveryResultTypeModule.
@@ -20,7 +20,7 @@ public class DeliveryResultTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(DeliveryResultTypeBrowserManager.class);
 	
-	private DeliveryResultTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(DeliveryResultTypeIoOperation.class);
+	private DeliveryResultTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(DeliveryResultTypeIoOperation.class);
 
 	/**
 	 * Returns all stored {@link DeliveryResultType}s.

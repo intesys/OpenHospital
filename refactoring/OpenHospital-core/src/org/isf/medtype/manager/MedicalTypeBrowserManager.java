@@ -1,19 +1,17 @@
 package org.isf.medtype.manager;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medtype.model.MedicalType;
 import org.isf.medtype.service.MedicalTypeIoOperation;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Manager class for the medical type module.
@@ -23,7 +21,7 @@ public class MedicalTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(MedicalTypeBrowserManager.class);
 	
-	private MedicalTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(MedicalTypeIoOperation.class);
+	private MedicalTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(MedicalTypeIoOperation.class);
 
 	/**
 	 * Retrieves all the medical types.
@@ -126,12 +124,21 @@ public class MedicalTypeBrowserManager {
 	 * @param medicalType the medical type to delete.
 	 * @return <code>true</code> if the medical type has been deleted, <code>false</code> otherwise.
 	 */
-	public boolean deleteMedicalType(MedicalType medicalType) {
+	public boolean deleteMedicalType(MedicalType medicalType) throws OHServiceException {
 		try {
 			return ioOperations.deleteMedicalType(medicalType);
-		} catch (OHException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-			return false;
-		}
+        } catch (OHException e) {
+			/*Already cached exception with OH specific error message -
+			 * create ready to return OHServiceException and keep existing error message
+			 */
+            logger.error("", e);
+            throw new OHServiceException(e, new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),
+                    e.getMessage(), OHSeverityLevel.ERROR));
+        }catch(Exception e){
+            //Any exception
+            logger.error("", e);
+            throw new OHServiceException(e, new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),
+                    MessageBundle.getMessage("angal.sql.thedatacouldnotbesaved"), OHSeverityLevel.ERROR));
+        }
 	}
 }

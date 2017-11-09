@@ -1,11 +1,8 @@
 package org.isf.opd.manager;
 
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.opd.model.Opd;
 import org.isf.opd.service.OpdIoOperations;
 import org.isf.utils.exception.OHException;
@@ -14,6 +11,9 @@ import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -24,7 +24,7 @@ public class OpdBrowserManager {
 	
 	private final Logger logger = LoggerFactory.getLogger(OpdBrowserManager.class);
 	
-	private OpdIoOperations ioOperations = Menu.getApplicationContext().getBean(OpdIoOperations.class);
+	private OpdIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(OpdIoOperations.class);
 	
 	/**
 	 * return all OPDs of today or one week ago

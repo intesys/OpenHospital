@@ -32,7 +32,7 @@ import org.isf.priceslist.model.Price;
 import org.isf.priceslist.model.PriceList;
 import org.isf.pricesothers.manager.PricesOthersManager;
 import org.isf.pricesothers.model.PricesOthers;
-import org.isf.serviceprinting.manager.PrintManager;
+import org.isf.serviceprinting.gui.PrintManager;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.gui.OHServiceExceptionUtil;
 import org.isf.utils.jobjects.ModalJFrame;

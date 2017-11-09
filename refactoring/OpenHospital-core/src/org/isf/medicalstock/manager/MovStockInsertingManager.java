@@ -1,9 +1,5 @@
 package org.isf.medicalstock.manager;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.isf.generaldata.GeneralData;
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicals.model.Medical;
@@ -11,13 +7,17 @@ import org.isf.medicals.service.MedicalsIoOperations;
 import org.isf.medicalstock.model.Lot;
 import org.isf.medicalstock.model.Movement;
 import org.isf.medicalstock.service.MedicalStockIoOperations;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MovStockInsertingManager {
 
@@ -27,8 +27,8 @@ public class MovStockInsertingManager {
 	private MedicalsIoOperations ioOperationsMedicals;
 
 	public MovStockInsertingManager() {
-		ioOperations = Menu.getApplicationContext().getBean(MedicalStockIoOperations.class);
-		ioOperationsMedicals = Menu.getApplicationContext().getBean(MedicalsIoOperations.class);
+		ioOperations = MainApplicationManager.getApplicationContext().getBean(MedicalStockIoOperations.class);
+		ioOperationsMedicals = MainApplicationManager.getApplicationContext().getBean(MedicalsIoOperations.class);
 	}
 
 	// Replaced by getMedical in MedicalBrowsingManager

@@ -1,16 +1,11 @@
 package org.isf.therapy.manager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicals.manager.MedicalBrowsingManager;
 import org.isf.medicals.model.Medical;
 import org.isf.medicals.service.MedicalsIoOperations;
 import org.isf.medicalstockward.manager.MovWardBrowserManager;
-import org.isf.menu.gui.MainMenu;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.manager.PatientBrowserManager;
 import org.isf.patient.model.Patient;
 import org.isf.sms.model.Sms;
@@ -26,12 +21,16 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class TherapyManager {
 	
 	private final Logger logger = LoggerFactory.getLogger(TherapyManager.class);
 	
-	private TherapyIoOperations ioOperations = Menu.getApplicationContext().getBean(TherapyIoOperations.class);
-	private SmsOperations smsOp = Menu.getApplicationContext().getBean(SmsOperations.class);
+	private TherapyIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(TherapyIoOperations.class);
+	private SmsOperations smsOp = MainApplicationManager.getApplicationContext().getBean(SmsOperations.class);
 	
 	public Therapy createTherapy(TherapyRow th) throws OHServiceException {
 		try{
@@ -77,7 +76,7 @@ public class TherapyManager {
 			//System.out.println(formatDate(dates[i]));
 		}
 		
-		MedicalsIoOperations medicalIoOperations = Menu.getApplicationContext().getBean(MedicalsIoOperations.class);
+		MedicalsIoOperations medicalIoOperations = MainApplicationManager.getApplicationContext().getBean(MedicalsIoOperations.class);
 		Medical med = null;
 		try {
 			med = medicalIoOperations.getMedical(medId);
@@ -165,7 +164,7 @@ public class TherapyManager {
 	 * @return <code>true</code> if the row has been inserted, <code>false</code> otherwise
 	 * @throws OHServiceException 
 	 */
-	public boolean newTherapies(ArrayList<TherapyRow> thRows) throws OHServiceException {
+	public boolean newTherapies(ArrayList<TherapyRow> thRows, String username) throws OHServiceException {
 		if (!thRows.isEmpty()) {
 			DateTime now = new DateTime();
 			
@@ -194,7 +193,7 @@ public class TherapyManager {
 								sms.setSmsDateSched(date.getTime());
 								sms.setSmsNumber(pat.getTelephone());
 								sms.setSmsText(prepareSmsFromTherapy(th));
-								sms.setSmsUser(MainMenu.getUser());
+								sms.setSmsUser(username);
 								sms.setModule("therapy");
 								sms.setModuleID(String.valueOf(patID));
 								smsOp.saveOrUpdate(sms);

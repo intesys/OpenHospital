@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 
 import org.isf.generaldata.GeneralData;
 import org.isf.generaldata.MessageBundle;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.menu.manager.UserBrowsingManager;
 import org.isf.menu.model.User;
 import org.isf.menu.model.UserGroup;
@@ -48,7 +49,7 @@ public class MainMenu extends JFrame implements ActionListener, Login.LoginListe
 	public void loginInserted(AWTEvent e) {
 		if (e.getSource() instanceof User) {
 			myUser = (User) e.getSource();
-			MDC.put("OHUser", myUser.getUserName());
+            MDC.put("OHUser", myUser.getUserName());
 			MDC.put("OHUserGroup", myUser.getUserGroupName().getCode());
 			logger.info("Logging: \"" + myUser.getUserName() + "\" user has logged the system.");
 		}

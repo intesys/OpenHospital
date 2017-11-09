@@ -1,17 +1,17 @@
 package org.isf.dicom.manager;
 
-import java.util.Properties;
-
 import org.isf.dicom.model.FileDicom;
 import org.isf.dicom.service.DicomIoOperations;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 /**
  * Interface for definitions IO for Dicom acquired files
@@ -22,7 +22,7 @@ public class SqlDicomManager implements DicomManagerInterface{
 	
 	private final Logger logger = LoggerFactory.getLogger(SqlDicomManager.class);
 	
-	private DicomIoOperations ioOperations = Menu.getApplicationContext().getBean(DicomIoOperations.class);
+	private DicomIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(DicomIoOperations.class);
 	/**
 	 * Constructor
 	 */

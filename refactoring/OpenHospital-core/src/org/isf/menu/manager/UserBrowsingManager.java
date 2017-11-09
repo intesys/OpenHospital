@@ -1,25 +1,24 @@
 package org.isf.menu.manager;
 
-import java.util.*;
-
-import javax.swing.JOptionPane;
-
-import org.isf.menu.gui.Menu;
-import org.isf.menu.model.*;
-import org.isf.menu.service.*;
-import org.isf.utils.exception.OHException;
 import org.isf.generaldata.MessageBundle;
+import org.isf.menu.model.User;
+import org.isf.menu.model.UserGroup;
+import org.isf.menu.model.UserMenuItem;
+import org.isf.menu.service.MenuIoOperations;
+import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class UserBrowsingManager {
 
     private final Logger logger = LoggerFactory.getLogger(UserBrowsingManager.class);
 	
-	private MenuIoOperations ioOperations = Menu.getApplicationContext().getBean(MenuIoOperations.class);
+	private MenuIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(MenuIoOperations.class);
 	
 	/**
 	 * returns the list of {@link User}s

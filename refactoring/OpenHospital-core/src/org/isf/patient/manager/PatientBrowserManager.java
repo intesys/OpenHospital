@@ -1,14 +1,10 @@
 package org.isf.patient.manager;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.isf.accounting.manager.BillBrowserManager;
 import org.isf.accounting.model.Bill;
 import org.isf.admission.manager.AdmissionBrowserManager;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.model.Patient;
 import org.isf.patient.service.PatientIoOperations;
 import org.isf.utils.exception.OHException;
@@ -18,12 +14,16 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 public class PatientBrowserManager {
 	
 	private final Logger logger = LoggerFactory.getLogger(PatientBrowserManager.class);
 
-	private PatientIoOperations ioOperations = Menu.getApplicationContext().getBean(PatientIoOperations.class);
+	private PatientIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(PatientIoOperations.class);
 	
 	/**
 	 * methot that insert a new Patient in the db

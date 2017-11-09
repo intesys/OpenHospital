@@ -1,11 +1,9 @@
 package org.isf.agetype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.agetype.model.AgeType;
 import org.isf.agetype.service.AgeTypeIoOperations;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class AgeTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(AgeTypeBrowserManager.class);
 	
-	private AgeTypeIoOperations ioOperations = Menu.getApplicationContext().getBean(AgeTypeIoOperations.class);
+	private AgeTypeIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(AgeTypeIoOperations.class);
 
 	/**
 	 * Returns all available age types.

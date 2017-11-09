@@ -1,5 +1,27 @@
 package org.isf.sms.gui;
 
+import com.toedter.calendar.JDateChooser;
+import org.apache.log4j.PropertyConfigurator;
+import org.isf.generaldata.GeneralData;
+import org.isf.generaldata.MessageBundle;
+import org.isf.sms.manager.SmsManager;
+import org.isf.sms.model.Sms;
+import org.isf.utils.exception.OHServiceException;
+import org.isf.utils.exception.gui.OHServiceExceptionUtil;
+import org.isf.utils.jobjects.ModalJFrame;
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -17,32 +39,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
-import org.apache.log4j.PropertyConfigurator;
-import org.isf.generaldata.GeneralData;
-import org.isf.generaldata.MessageBundle;
-import org.isf.sms.manager.SmsManager;
-import org.isf.sms.model.Sms;
-import org.isf.sms.service.SmsOperations;
-//import org.isf.sms.service.SmsOperations;
-import org.isf.utils.exception.OHException;
-import org.isf.utils.exception.OHServiceException;
-import org.isf.utils.jobjects.ModalJFrame;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
-
-import com.toedter.calendar.JDateChooser;
 
 /**
  * @author Mwithi
@@ -266,14 +262,13 @@ public class SmsBrowser extends ModalJFrame {
 								JOptionPane.YES_NO_OPTION);
 						if (n == JOptionPane.YES_OPTION) {
 							for (int i : indexes) {
-								SmsOperations smsOp = new SmsOperations();
+                                SmsManager smsOp = new SmsManager();
 								Sms sms = (Sms) jSmsTable.getValueAt(i, -1);
 								try {
 									smsOp.delete(sms);
-								} catch (OHException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								}catch (OHServiceException ex) {
+                                    OHServiceExceptionUtil.showMessages(ex);
+                                }
 							}
 						}
 						updateModel(dateFrom, dateTo);

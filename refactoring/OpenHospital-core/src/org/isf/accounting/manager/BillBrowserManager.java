@@ -1,20 +1,20 @@
 package org.isf.accounting.manager;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import org.isf.accounting.model.Bill;
 import org.isf.accounting.model.BillItems;
 import org.isf.accounting.model.BillPayments;
 import org.isf.accounting.service.AccountingIoOperations;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class BillBrowserManager {
 
@@ -23,7 +23,7 @@ public class BillBrowserManager {
 	private AccountingIoOperations ioOperations;
 
 	public BillBrowserManager(){
-		ioOperations=Menu.getApplicationContext().getBean(AccountingIoOperations.class);
+		ioOperations= MainApplicationManager.getApplicationContext().getBean(AccountingIoOperations.class);
 	}
 
 	/**

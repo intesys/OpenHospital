@@ -3,13 +3,8 @@
  */
 package org.isf.visits.manager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.MainMenu;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.manager.PatientBrowserManager;
 import org.isf.patient.model.Patient;
 import org.isf.sms.model.Sms;
@@ -25,6 +20,10 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * @author Mwithi
  *
@@ -33,8 +32,8 @@ public class VisitManager {
 	
 	private final Logger logger = LoggerFactory.getLogger(TherapyManager.class);
 	
-	private VisitsIoOperations ioOperations = Menu.getApplicationContext().getBean(VisitsIoOperations.class);
-	private SmsOperations smsOp = Menu.getApplicationContext().getBean(SmsOperations.class);
+	private VisitsIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(VisitsIoOperations.class);
+	private SmsOperations smsOp = MainApplicationManager.getApplicationContext().getBean(SmsOperations.class);
 	/**
 	 * returns the list of all {@link Visit}s related to a patID
 	 * 
@@ -94,7 +93,7 @@ public class VisitManager {
 	 * @throws OHServiceException 
 	 * @throws OHException 
 	 */
-	public boolean newVisits(ArrayList<Visit> visits) throws OHServiceException {
+	public boolean newVisits(ArrayList<Visit> visits, String username) throws OHServiceException {
 		if (!visits.isEmpty()) {
 			DateTime now = new DateTime();
 			PatientBrowserManager patMan = new PatientBrowserManager();
@@ -120,7 +119,7 @@ public class VisitManager {
 							sms.setSmsDateSched(date.getTime());
 							sms.setSmsNumber(pat.getTelephone());
 							sms.setSmsText(prepareSmsFromVisit(visit));
-							sms.setSmsUser(MainMenu.getUser());
+							sms.setSmsUser(username);
 							sms.setModule("visit");
 							sms.setModuleID(String.valueOf(patID));
 							smsOp.saveOrUpdate(sms);

@@ -10,18 +10,18 @@ package org.isf.disease.manager;
  * 					   to get only opd/ipd related diseases
  *------------------------------------------*/
 
-import java.util.ArrayList;
-
 import org.isf.disease.model.Disease;
 import org.isf.disease.service.DiseaseIoOperations;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * The manage class for the disease module.
@@ -30,7 +30,7 @@ public class DiseaseBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(DiseaseBrowserManager.class);
 	
-	private DiseaseIoOperations ioOperations = Menu.getApplicationContext().getBean(DiseaseIoOperations.class);
+	private DiseaseIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(DiseaseIoOperations.class);
 
 	/**
 	 * Returns all the stored {@link Disease} with ODP flag <code>true</code>.

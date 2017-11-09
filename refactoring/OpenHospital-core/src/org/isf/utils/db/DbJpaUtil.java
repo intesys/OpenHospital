@@ -1,6 +1,7 @@
 package org.isf.utils.db;
 
-import java.util.List;
+import org.isf.generaldata.MessageBundle;
+import org.isf.utils.exception.OHException;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -16,10 +17,7 @@ import javax.persistence.Query;
 import javax.persistence.QueryTimeoutException;
 import javax.persistence.RollbackException;
 import javax.persistence.TransactionRequiredException;
-import javax.transaction.Transaction;
-
-import org.isf.generaldata.MessageBundle;
-import org.isf.utils.exception.OHException;
+import java.util.List;
 
 /**
  * Class that executes a query using JPA

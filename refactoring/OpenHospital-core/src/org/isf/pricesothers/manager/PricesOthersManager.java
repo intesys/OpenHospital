@@ -1,9 +1,7 @@
 package org.isf.pricesothers.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.pricesothers.model.PricesOthers;
 import org.isf.pricesothers.service.PriceOthersIoOperations;
 import org.isf.utils.exception.OHException;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class PricesOthersManager {
 
 	private final Logger logger = LoggerFactory.getLogger(PricesOthersManager.class);
 	
-	private PriceOthersIoOperations ioOperations = Menu.getApplicationContext().getBean(PriceOthersIoOperations.class);
+	private PriceOthersIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(PriceOthersIoOperations.class);
 
 	/**
 	 * return the list of {@link PriceOthers}s in the DB

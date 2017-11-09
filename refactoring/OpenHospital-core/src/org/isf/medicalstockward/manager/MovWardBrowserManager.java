@@ -1,17 +1,12 @@
 package org.isf.medicalstockward.manager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.GregorianCalendar;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicals.model.Medical;
 import org.isf.medicalstock.model.Movement;
 import org.isf.medicalstockward.model.MedicalWard;
 import org.isf.medicalstockward.model.MovementWard;
 import org.isf.medicalstockward.service.MedicalStockWardIoOperations;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.serviceprinting.print.MedicalWardForPrint;
 import org.isf.serviceprinting.print.MovementForPrint;
 import org.isf.serviceprinting.print.MovementWardForPrint;
@@ -23,10 +18,15 @@ import org.isf.ward.model.Ward;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+
 public class MovWardBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(MovWardBrowserManager.class);
-	private MedicalStockWardIoOperations ioOperations=Menu.getApplicationContext().getBean(MedicalStockWardIoOperations.class);
+	private MedicalStockWardIoOperations ioOperations= MainApplicationManager.getApplicationContext().getBean(MedicalStockWardIoOperations.class);
 
 
 	/**

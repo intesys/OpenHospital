@@ -1,9 +1,7 @@
 package org.isf.operation.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.operation.model.Operation;
 import org.isf.operation.service.OperationIoOperations;
 import org.isf.opetype.model.OperationType;
@@ -13,6 +11,8 @@ import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Class that provides gui separation from database operations and gives some
@@ -25,7 +25,7 @@ public class OperationBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(OperationBrowserManager.class);
 	
-	private OperationIoOperations ioOperations = Menu.getApplicationContext().getBean(OperationIoOperations.class);
+	private OperationIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(OperationIoOperations.class);
 
 	/**
 	 * return the list of {@link Operation}s

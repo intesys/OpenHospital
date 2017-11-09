@@ -1,7 +1,7 @@
 package org.isf.supplier.manager;
 
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.supplier.model.Supplier;
 import org.isf.supplier.service.SupplierOperations;
 import org.isf.utils.exception.OHException;
@@ -16,7 +16,7 @@ import java.util.List;
 public class SupplierBrowserManager {
 
     private final Logger logger = LoggerFactory.getLogger(SupplierBrowserManager.class);
-    private SupplierOperations ioOperations = Menu.getApplicationContext().getBean(SupplierOperations.class);
+    private SupplierOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(SupplierOperations.class);
 
     public boolean saveOrUpdate(Supplier supplier) throws OHServiceException {
         try {

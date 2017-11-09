@@ -1,11 +1,8 @@
 package org.isf.ward.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.isf.admission.manager.AdmissionBrowserManager;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -14,6 +11,9 @@ import org.isf.ward.model.Ward;
 import org.isf.ward.service.WardIoOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class that provides gui separation from database operations and gives some
@@ -26,7 +26,7 @@ public class WardBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(WardBrowserManager.class);
 	
-	private WardIoOperations ioOperations = Menu.getApplicationContext().getBean(WardIoOperations.class);
+	private WardIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(WardIoOperations.class);
 
 	/**
 	 * Returns all stored wards.

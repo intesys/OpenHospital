@@ -1,9 +1,7 @@
 package org.isf.pregtreattype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.pregtreattype.model.PregnantTreatmentType;
 import org.isf.pregtreattype.service.PregnantTreatmentTypeIoOperation;
 import org.isf.utils.exception.OHException;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class PregnantTreatmentTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(PregnantTreatmentTypeBrowserManager.class);
 	
-	private PregnantTreatmentTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(PregnantTreatmentTypeIoOperation.class);
+	private PregnantTreatmentTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(PregnantTreatmentTypeIoOperation.class);
 	
 	/**
 	 * return the list of {@link PregnantTreatmentType}s

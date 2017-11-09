@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import org.isf.generaldata.MessageBundle;
 import org.isf.lab.model.LaboratoryForPrint;
-import org.isf.serviceprinting.manager.PrintManager;
+import org.isf.serviceprinting.gui.PrintManager;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.gui.OHServiceExceptionUtil;
 

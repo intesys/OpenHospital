@@ -1,10 +1,7 @@
 package org.isf.priceslist.manager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.priceslist.model.List;
 import org.isf.priceslist.model.Price;
 import org.isf.priceslist.model.PriceList;
@@ -17,11 +14,14 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class PriceListManager {
 
 	private final Logger logger = LoggerFactory.getLogger(PriceListManager.class);
 	
-	private PricesListIoOperations ioOperations = Menu.getApplicationContext().getBean(PricesListIoOperations.class);
+	private PricesListIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(PricesListIoOperations.class);
 	
 	/**
 	 * return the list of {@link List}s in the DB

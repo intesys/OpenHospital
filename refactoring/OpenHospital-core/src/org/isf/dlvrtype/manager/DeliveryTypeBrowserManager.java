@@ -1,17 +1,17 @@
 package org.isf.dlvrtype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.dlvrtype.model.DeliveryType;
 import org.isf.dlvrtype.service.DeliveryTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * The manager class for the DeliveryType module.
@@ -20,7 +20,7 @@ public class DeliveryTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(DeliveryTypeBrowserManager.class);
 	
-	private DeliveryTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(DeliveryTypeIoOperation.class);
+	private DeliveryTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(DeliveryTypeIoOperation.class);
 
 	/**
 	 * Returns all stored {@link DeliveryType}s.

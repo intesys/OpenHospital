@@ -1,13 +1,12 @@
 package org.isf.medtype.gui;
 
-import java.awt.AWTEvent;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import org.isf.generaldata.MessageBundle;
+import org.isf.medtype.gui.MedicalTypeBrowserEdit.MedicalTypeListener;
+import org.isf.medtype.manager.MedicalTypeBrowserManager;
+import org.isf.medtype.model.MedicalType;
+import org.isf.utils.exception.OHServiceException;
+import org.isf.utils.exception.gui.OHServiceExceptionUtil;
+import org.isf.utils.jobjects.ModalJFrame;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,14 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import org.isf.generaldata.MessageBundle;
-import org.isf.medtype.gui.MedicalTypeBrowserEdit.MedicalTypeListener;
-import org.isf.medtype.manager.MedicalTypeBrowserManager;
-import org.isf.medtype.model.MedicalType;
-import org.isf.utils.exception.OHServiceException;
-import org.isf.utils.exception.gui.OHServiceExceptionUtil;
-import org.isf.utils.jobjects.ModalJFrame;
+import java.awt.AWTEvent;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * Browsing of table MedicalDsrType
@@ -199,14 +198,18 @@ public class MedicalTypeBrowser extends ModalJFrame implements MedicalTypeListen
 						int n = JOptionPane.showConfirmDialog(null,
 								MessageBundle.getMessage("angal.medtype.deletemedicaltype")+" \" "+dis.getDescription() + "\" ?",
 								MessageBundle.getMessage("angal.hospital"), JOptionPane.YES_NO_OPTION);
-						
-						if ((n == JOptionPane.YES_OPTION)
-								&& (manager.deleteMedicalType(dis))) {
-							pMedicalType.remove(jTable.getSelectedRow());
-							model.fireTableDataChanged();
-							jTable.updateUI();
-						}
-					}
+
+                        try {
+                            if ((n == JOptionPane.YES_OPTION)
+                                    && (manager.deleteMedicalType(dis))) {
+                                pMedicalType.remove(jTable.getSelectedRow());
+                                model.fireTableDataChanged();
+                                jTable.updateUI();
+                            }
+                        } catch (OHServiceException e) {
+                            OHServiceExceptionUtil.showMessages(e);
+                        }
+                    }
 				}
 				
 			});

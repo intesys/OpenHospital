@@ -1,17 +1,17 @@
 package org.isf.medstockmovtype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medstockmovtype.model.MovementType;
 import org.isf.medstockmovtype.service.MedicalStockMovementTypeIoOperation;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Manager class for the medical stock movement type.
@@ -21,7 +21,7 @@ public class MedicaldsrstockmovTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(MedicaldsrstockmovTypeBrowserManager.class);
 	
-	private MedicalStockMovementTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(MedicalStockMovementTypeIoOperation.class);
+	private MedicalStockMovementTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(MedicalStockMovementTypeIoOperation.class);
 
 	/**
 	 * Returns all the medical stock movement types.

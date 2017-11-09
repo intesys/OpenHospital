@@ -1,11 +1,9 @@
 package org.isf.exatype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.exatype.model.ExamType;
 import org.isf.exatype.service.ExamTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class ExamTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(ExamTypeBrowserManager.class);
 	
-	private ExamTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(ExamTypeIoOperation.class);
+	private ExamTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(ExamTypeIoOperation.class);
 
 	/**
 	 * Return the list of {@link ExamType}s.

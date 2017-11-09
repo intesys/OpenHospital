@@ -3,6 +3,9 @@
 .settings
 bin
 logs
-/target/**
+/target/
 .idea/
 *.iml
+refactoring/OpenHospital-core/target/
+refactoring/OpenHospital-gui/target/
+refactoring/target/

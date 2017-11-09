@@ -1,19 +1,17 @@
 package org.isf.distype.manager;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.isf.distype.model.DiseaseType;
 import org.isf.distype.service.DiseaseTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Manager class for DisType module.
@@ -22,7 +20,7 @@ public class DiseaseTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(DiseaseTypeBrowserManager.class);
 	
-	private DiseaseTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(DiseaseTypeIoOperation.class);
+	private DiseaseTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(DiseaseTypeIoOperation.class);
 
 	/**
 	 * Returns all the stored {@link DiseaseType}s.

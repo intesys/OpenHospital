@@ -1,11 +1,9 @@
 package org.isf.disctype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.disctype.model.DischargeType;
 import org.isf.disctype.service.DischargeTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class DischargeTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(DischargeTypeBrowserManager.class);
 	
-	private DischargeTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(DischargeTypeIoOperation.class);
+	private DischargeTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(DischargeTypeIoOperation.class);
 
 	/**
 	 * method that returns all DischargeTypes in a list

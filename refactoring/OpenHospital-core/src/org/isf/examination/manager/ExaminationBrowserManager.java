@@ -1,14 +1,10 @@
 package org.isf.examination.manager;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.isf.examination.model.PatientExamination;
 import org.isf.examination.service.ExaminationOperations;
 import org.isf.generaldata.ExaminationParameters;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.model.Patient;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
@@ -17,11 +13,15 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class ExaminationBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(ExaminationBrowserManager.class);
 
-	private ExaminationOperations ioOperations = Menu.getApplicationContext().getBean(ExaminationOperations.class);
+	private ExaminationOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(ExaminationOperations.class);
 	
 	
 	/**

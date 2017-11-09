@@ -1,17 +1,17 @@
 package org.isf.malnutrition.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.malnutrition.model.Malnutrition;
 import org.isf.malnutrition.service.MalnutritionIoOperation;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Manager for malnutrition module.
@@ -21,7 +21,7 @@ public class MalnutritionManager {
 
 	private final Logger logger = LoggerFactory.getLogger(MalnutritionManager.class);
 	
-	private MalnutritionIoOperation ioOperation = Menu.getApplicationContext().getBean(MalnutritionIoOperation.class);
+	private MalnutritionIoOperation ioOperation = MainApplicationManager.getApplicationContext().getBean(MalnutritionIoOperation.class);
 
 	/**
 	 * Retrieves all the {@link Malnutrition} associated to the given admission id.

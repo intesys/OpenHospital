@@ -4,20 +4,19 @@
  */
 package org.isf.medicals.manager;
 
-import java.util.ArrayList;
-
-//import javax.swing.JOptionPane;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicals.model.Medical;
 import org.isf.medicals.service.MedicalsIoOperations;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+
 
 /**
  * Class that provides gui separation from database operations and gives some
@@ -30,7 +29,7 @@ public class MedicalBrowsingManager {
 
 	private final Logger logger = LoggerFactory.getLogger(MedicalBrowsingManager.class);
 	
-	private MedicalsIoOperations ioOperations = Menu.getApplicationContext().getBean(MedicalsIoOperations.class);
+	private MedicalsIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(MedicalsIoOperations.class);
 	
 	/**
 	 * Returns the requested medical.

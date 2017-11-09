@@ -4,19 +4,19 @@
  */
 package org.isf.exa.manager;
 
-import java.util.ArrayList;
-
 import org.isf.exa.model.Exam;
 import org.isf.exa.service.ExamIoOperations;
 import org.isf.exatype.model.ExamType;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Class that provides gui separation from database operations and gives some
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ExamBrowsingManager {
 
-	private ExamIoOperations ioOperations = Menu.getApplicationContext().getBean(ExamIoOperations.class);
+	private ExamIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(ExamIoOperations.class);
 
 	private final Logger logger = LoggerFactory.getLogger(ExamBrowsingManager.class);
 	

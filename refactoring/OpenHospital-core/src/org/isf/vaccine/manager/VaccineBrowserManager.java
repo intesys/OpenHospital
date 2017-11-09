@@ -1,11 +1,7 @@
 package org.isf.vaccine.manager;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -14,6 +10,8 @@ import org.isf.vaccine.model.Vaccine;
 import org.isf.vaccine.service.VaccineIoOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /**
  * Class that provides gui separation from database operations and gives some
@@ -29,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class VaccineBrowserManager {
 
     private final Logger logger = LoggerFactory.getLogger(VaccineBrowserManager.class);
-	private VaccineIoOperations ioOperations = Menu.getApplicationContext().getBean(VaccineIoOperations.class);
+	private VaccineIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(VaccineIoOperations.class);
 
 	/**
 	 * returns the list of {@link Vaccine}s in the DB

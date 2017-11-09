@@ -1,9 +1,7 @@
 package org.isf.opetype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.opetype.model.OperationType;
 import org.isf.opetype.service.OperationTypeIoOperation;
 import org.isf.utils.exception.OHException;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class OperationTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(OperationTypeBrowserManager.class);
 	
-	private OperationTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(OperationTypeIoOperation.class);
+	private OperationTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(OperationTypeIoOperation.class);
 	
 	/**
 	 * return the list of {@link OperationType}s

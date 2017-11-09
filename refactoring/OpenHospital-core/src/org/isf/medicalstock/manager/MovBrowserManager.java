@@ -1,12 +1,9 @@
 package org.isf.medicalstock.manager;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicalstock.model.Movement;
 import org.isf.medicalstock.service.MedicalStockIoOperations;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -14,6 +11,9 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.isf.ward.model.Ward;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 public class MovBrowserManager {
@@ -23,7 +23,7 @@ public class MovBrowserManager {
 	private MedicalStockIoOperations ioOperations;
 	
 	public MovBrowserManager(){
-		ioOperations = Menu.getApplicationContext().getBean(MedicalStockIoOperations.class);
+		ioOperations = MainApplicationManager.getApplicationContext().getBean(MedicalStockIoOperations.class);
 	}
 
 	/**
@@ -48,6 +48,37 @@ public class MovBrowserManager {
 					MessageBundle.getMessage("angal.medicalstock.problemsoccurredwithsqlistruction"), OHSeverityLevel.ERROR));
 		}
 	}
+
+    /**
+     * Retrieves all the {@link Movement}s.
+     * @return the retrieved movements.
+     * @throws OHServiceException
+     */
+    public ArrayList<Movement> getMovementForPrint(
+            String medicalDescription,
+            String medicalTypeCode,
+            String wardId,
+            String movType,
+            GregorianCalendar movFrom,
+            GregorianCalendar movTo,
+            String lotCode,
+            MedicalStockIoOperations.MovementOrder order) throws OHServiceException{
+        try {
+            return ioOperations.getMovementForPrint(medicalDescription, medicalTypeCode, wardId, movType, movFrom, movTo, lotCode, order);
+        } catch (OHException e) {
+			/*Already cached exception with OH specific error message -
+			 * create ready to return OHServiceException and keep existing error message
+			 */
+            logger.error("", e);
+            throw new OHServiceException(e, new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),
+                    e.getMessage(), OHSeverityLevel.ERROR));
+        }catch(Exception e){
+            //Any exception
+            logger.error("", e);
+            throw new OHServiceException(e, new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),
+                    MessageBundle.getMessage("angal.medicalstock.problemsoccurredwithsqlistruction"), OHSeverityLevel.ERROR));
+        }
+    }
 
 	/**
 	 * Retrieves all the movement associated to the specified {@link Ward}.

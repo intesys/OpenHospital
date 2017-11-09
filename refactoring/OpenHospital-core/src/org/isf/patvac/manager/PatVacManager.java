@@ -9,13 +9,8 @@ package org.isf.patvac.manager;
 *------------------------------------------*/
 
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
-import javax.swing.JOptionPane;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patvac.model.PatientVaccine;
 import org.isf.patvac.service.PatVacIoOperations;
 import org.isf.utils.exception.OHException;
@@ -25,13 +20,16 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 
 
 public class PatVacManager {
 
 	private final Logger logger = LoggerFactory.getLogger(PatVacManager.class);
 	
-	private PatVacIoOperations ioOperations = Menu.getApplicationContext().getBean(PatVacIoOperations.class);
+	private PatVacIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(PatVacIoOperations.class);
 	
 	/**
 	 * returns all {@link PatientVaccine}s of today or one week ago

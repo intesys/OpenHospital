@@ -49,6 +49,7 @@ import org.isf.generaldata.GeneralData;
 import org.isf.generaldata.MessageBundle;
 import org.isf.medicals.manager.MedicalBrowsingManager;
 import org.isf.medicals.model.Medical;
+import org.isf.menu.gui.MainMenu;
 import org.isf.patient.manager.PatientBrowserManager;
 import org.isf.patient.model.Patient;
 import org.isf.therapy.manager.TherapyManager;
@@ -690,7 +691,7 @@ public class TherapyEdit extends JDialog {
 									vstManager.deleteAllVisits(patient.getCode());
 								} else 	return;
 							} else {
-								if (vstManager.newVisits(visits)) {
+								if (vstManager.newVisits(visits, MainMenu.getUser())) {
 									JOptionPane.showMessageDialog(TherapyEdit.this,
 											MessageBundle.getMessage("angal.therapy.patientvisitssaved")); //$NON-NLS-1$
 								} else {
@@ -717,7 +718,7 @@ public class TherapyEdit extends JDialog {
 					
 					if (saveTherapies) {
 						try {
-							if (thManager.newTherapies(thRows)) {
+							if (thManager.newTherapies(thRows, MainMenu.getUser())) {
 								JOptionPane.showMessageDialog(TherapyEdit.this,
 										MessageBundle.getMessage("angal.therapy.therapiesplansaved"));
 							} else {

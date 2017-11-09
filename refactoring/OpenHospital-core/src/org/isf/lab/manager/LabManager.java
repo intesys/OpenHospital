@@ -7,16 +7,12 @@ package org.isf.lab.manager;
  * 10/11/2006 - ross - added editing capability 
  *------------------------------------------*/
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.isf.generaldata.MessageBundle;
 import org.isf.lab.model.Laboratory;
 import org.isf.lab.model.LaboratoryForPrint;
 import org.isf.lab.model.LaboratoryRow;
 import org.isf.lab.service.LabIoOperations;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.model.Patient;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
@@ -25,11 +21,15 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 public class LabManager {
 
 	private final Logger logger = LoggerFactory.getLogger(LabManager.class);
 	
-	private LabIoOperations ioOperations = Menu.getApplicationContext().getBean(LabIoOperations.class);
+	private LabIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(LabIoOperations.class);
 
 	/**
 	 * Return the whole list of exams ({@link Laboratory}s) within last year.

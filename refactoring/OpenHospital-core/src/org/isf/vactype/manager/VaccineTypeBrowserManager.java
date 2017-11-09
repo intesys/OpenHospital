@@ -7,13 +7,8 @@ package org.isf.vactype.manager;
  * 19/10/2011 - Cla - version is now 1.0
  *------------------------------------------*/
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
-import org.isf.therapy.manager.TherapyManager;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -23,11 +18,13 @@ import org.isf.vactype.service.VacTypeIoOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class VaccineTypeBrowserManager {
 	
     private final Logger logger = LoggerFactory.getLogger(VaccineTypeBrowserManager.class);
 	
-		private VacTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(VacTypeIoOperation.class);
+		private VacTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(VacTypeIoOperation.class);
 		
 		/**
 		 * This method returns all {@link VaccineType}s from DB	

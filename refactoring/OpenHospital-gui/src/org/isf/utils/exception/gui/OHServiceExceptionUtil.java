@@ -1,11 +1,10 @@
 package org.isf.utils.exception.gui;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
+
+import javax.swing.JOptionPane;
+import java.awt.Component;
 
 public class OHServiceExceptionUtil {
 

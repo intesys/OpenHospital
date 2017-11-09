@@ -55,7 +55,6 @@ import org.isf.generaldata.MessageBundle;
 import org.isf.hospital.manager.HospitalBrowsingManager;
 import org.isf.medicals.manager.MedicalBrowsingManager;
 import org.isf.medicals.model.Medical;
-import org.isf.medicalstock.manager.DateTextField;
 import org.isf.medicalstock.manager.MovBrowserManager;
 import org.isf.medicalstock.model.Lot;
 import org.isf.medicalstock.model.Movement;

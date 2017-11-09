@@ -1,11 +1,9 @@
 package org.isf.admtype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.admtype.model.AdmissionType;
 import org.isf.admtype.service.AdmissionTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.utils.exception.model.OHExceptionMessage;
@@ -13,11 +11,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class AdmissionTypeBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(AdmissionTypeBrowserManager.class);
 	
-	private AdmissionTypeIoOperation ioOperations = Menu.getApplicationContext().getBean(AdmissionTypeIoOperation.class);
+	private AdmissionTypeIoOperation ioOperations = MainApplicationManager.getApplicationContext().getBean(AdmissionTypeIoOperation.class);
 
 	/**
 	 * Returns all the available {@link AdmissionType}s.

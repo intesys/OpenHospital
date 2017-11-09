@@ -58,7 +58,7 @@ import org.isf.medtype.manager.MedicalTypeBrowserManager;
 import org.isf.medtype.model.MedicalType;
 import org.isf.menu.gui.MainMenu;
 import org.isf.patient.model.Patient;
-import org.isf.serviceprinting.manager.PrintManager;
+import org.isf.serviceprinting.gui.PrintManager;
 import org.isf.utils.excel.ExcelExporter;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;

@@ -1,14 +1,12 @@
 package org.isf.admission.manager;
 
-import java.util.ArrayList;
-
 import org.isf.admission.model.Admission;
 import org.isf.admission.model.AdmittedPatient;
 import org.isf.admission.service.AdmissionIoOperations;
 import org.isf.admtype.model.AdmissionType;
 import org.isf.disctype.model.DischargeType;
 import org.isf.generaldata.MessageBundle;
-import org.isf.menu.gui.Menu;
+import org.isf.menu.manager.MainApplicationManager;
 import org.isf.patient.model.Patient;
 import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
@@ -17,11 +15,13 @@ import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class AdmissionBrowserManager {
 
 	private final Logger logger = LoggerFactory.getLogger(AdmissionBrowserManager.class);
 	
-	private AdmissionIoOperations ioOperations = Menu.getApplicationContext().getBean(AdmissionIoOperations.class);
+	private AdmissionIoOperations ioOperations = MainApplicationManager.getApplicationContext().getBean(AdmissionIoOperations.class);
 
 	/**
 	 * Returns all patients with ward in which they are admitted.
