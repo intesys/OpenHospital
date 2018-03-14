@@ -3,7 +3,7 @@ set OH_HOME=%~dps0
 REM if java is not in the system path set JAVA_HOME variable
 REM set JAVA_HOME=%OH_HOME%jvm\bin
 
-for %%i in (java.exe) do set JAVA=%%~$PATH:i
+for %%i in (java.exe) do set JAVA=%%~s$PATH:i
 
 IF NOT DEFINED JAVA (
 	@echo Java not found
@@ -18,6 +18,10 @@ set OH_RESOURCE=%OH_HOME%rsc
 set CLASSPATH=%OH_BIN%
 
 SETLOCAL ENABLEDELAYEDEXPANSION
+
+FOR %%A IN (%OH_BIN%\*.jar) DO (
+	set CLASSPATH=!CLASSPATH!;%%A
+)
 
 FOR %%A IN (%OH_LIB%\*.jar) DO (
 	set CLASSPATH=!CLASSPATH!;%%A
@@ -46,4 +50,4 @@ cd /d %OH_HOME%\
 REM set JAVA=C:\PROGRA~2\Java\jdk1.6.0_29\bin\java.exe
 @echo on
 REM start /min %JAVA_HOME%\java -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
-start /min %JAVA% -showversion -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
+start /min %JAVA% -showversion -Dsun.java2d.dpiaware=false -Djava.library.path=%NATIVE_PATH% -classpath %CLASSPATH% org.isf.menu.gui.Menu
