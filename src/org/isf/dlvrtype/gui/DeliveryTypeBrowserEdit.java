@@ -1,9 +1,11 @@
 package org.isf.dlvrtype.gui;
 
-import java.awt.AWTEvent;
-import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
-import java.util.EventListener;
+import org.isf.dlvrtype.manager.DeliveryTypeBrowserManager;
+import org.isf.dlvrtype.model.DeliveryType;
+import org.isf.generaldata.MessageBundle;
+import org.isf.utils.exception.OHServiceException;
+import org.isf.utils.exception.model.OHExceptionMessage;
+import org.isf.utils.jobjects.VoLimitedTextField;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,13 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.EventListenerList;
-
-import org.isf.dlvrtype.manager.DeliveryTypeBrowserManager;
-import org.isf.dlvrtype.model.DeliveryType;
-import org.isf.generaldata.MessageBundle;
-import org.isf.utils.exception.OHServiceException;
-import org.isf.utils.exception.model.OHExceptionMessage;
-import org.isf.utils.jobjects.VoLimitedTextField;
+import java.awt.AWTEvent;
+import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.util.EventListener;
 
 public class DeliveryTypeBrowserEdit extends JDialog{
 
@@ -190,45 +189,9 @@ public class DeliveryTypeBrowserEdit extends JDialog{
 			okButton.setMnemonic(KeyEvent.VK_O);
 			okButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					String key = codeTextField.getText();
 					DeliveryTypeBrowserManager manager = new DeliveryTypeBrowserManager();
-					if (key.equals("")){
-						JOptionPane.showMessageDialog(				
-								null,
-								MessageBundle.getMessage("angal.dlvrtype.pleaseinsertacode"),
-								MessageBundle.getMessage("angal.hospital"),
-								JOptionPane.PLAIN_MESSAGE);
-						return;
-					}	
-					//System.out.print(key.length());
-					if (key.length()>1){
-						JOptionPane.showMessageDialog(				
-								null,
-								MessageBundle.getMessage("angal.dlvrtype.codetoolongmaxchar"),
-								MessageBundle.getMessage("angal.hospital"),
-								JOptionPane.PLAIN_MESSAGE);
-						
-						return;	
-					}
+
 					try{
-						if(insert){
-							if (manager.codeControl(key)){
-								JOptionPane.showMessageDialog(				
-										null,
-										MessageBundle.getMessage("angal.dlvrtype.codealreadyinuse"),
-										MessageBundle.getMessage("angal.hospital"),
-										JOptionPane.PLAIN_MESSAGE);
-								codeTextField.setText("");
-								return;	
-							}};
-							if (descriptionTextField.getText().equals("")){
-								JOptionPane.showMessageDialog(				
-										null,
-										MessageBundle.getMessage("angal.dlvrtype.pleaseinsertavaliddescription"),
-										MessageBundle.getMessage("angal.hospital"),
-										JOptionPane.PLAIN_MESSAGE);
-								return;	
-							}
 							if (descriptionTextField.getText().equals(lastdescription)){
 								dispose();	
 							}

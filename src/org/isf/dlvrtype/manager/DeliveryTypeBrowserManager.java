@@ -1,7 +1,5 @@
 package org.isf.dlvrtype.manager;
 
-import java.util.ArrayList;
-
 import org.isf.dlvrtype.model.DeliveryType;
 import org.isf.dlvrtype.service.DeliveryTypeIoOperation;
 import org.isf.generaldata.MessageBundle;
@@ -12,6 +10,9 @@ import org.isf.utils.exception.model.OHExceptionMessage;
 import org.isf.utils.exception.model.OHSeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The manager class for the DeliveryType module.
@@ -55,7 +56,13 @@ public class DeliveryTypeBrowserManager {
 	 */
 	public boolean newDeliveryType(DeliveryType deliveryType) throws OHServiceException {
 		try {
+            List<OHExceptionMessage> errors = validateDeliveryType(deliveryType, true);
+            if(!errors.isEmpty()){
+                throw new OHServiceException(errors);
+            }
 			return ioOperations.newDeliveryType(deliveryType);
+        } catch (OHServiceException e) {
+            throw e;
 		}  catch(OHException e){
 			/*Already cached exception with OH specific error message - 
 			 * create ready to return OHServiceException and keep existing error message
@@ -71,7 +78,7 @@ public class DeliveryTypeBrowserManager {
 		}
 	}
 
-	/**
+    /**
 	 * Updates the specified {@link DeliveryType}.
 	 * In case of error a message error is shown and a <code>false</code> value is returned.
 	 * @param deliveryType the delivery type to update.
@@ -80,7 +87,13 @@ public class DeliveryTypeBrowserManager {
 	 */
 	public boolean updateDeliveryType(DeliveryType deliveryType) throws OHServiceException {
 		try {
+            List<OHExceptionMessage> errors = validateDeliveryType(deliveryType, false);
+            if(!errors.isEmpty()){
+                throw new OHServiceException(errors);
+            }
 			return ioOperations.updateDeliveryType(deliveryType);
+        } catch (OHServiceException e) {
+            throw e;
 		}  catch(OHException e){
 			/*Already cached exception with OH specific error message - 
 			 * create ready to return OHServiceException and keep existing error message
@@ -145,4 +158,28 @@ public class DeliveryTypeBrowserManager {
 					MessageBundle.getMessage("angal.dlvrtype.thdatacouldnotbesaved"), OHSeverityLevel.ERROR));
 		}
 	}
+
+    private List<OHExceptionMessage> validateDeliveryType(DeliveryType deliveryType, boolean insert) throws OHServiceException {
+        List<OHExceptionMessage> errors = new ArrayList<OHExceptionMessage>();
+        String key = deliveryType.getCode();
+        if (key.equals("")){
+            errors.add(new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),  MessageBundle.getMessage("angal.dlvrtype.pleaseinsertacode"),
+                    OHSeverityLevel.ERROR));
+        }
+        if (key.length()>1){
+            errors.add(new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),  MessageBundle.getMessage("angal.dlvrtype.codetoolongmaxchar"),
+                    OHSeverityLevel.ERROR));
+        }
+        if(insert){
+            if (codeControl(key)){
+                errors.add(new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),  MessageBundle.getMessage("angal.dlvrtype.codealreadyinuse"),
+                        OHSeverityLevel.ERROR));
+            }
+        }
+        if (deliveryType.getDescription().equals("")){
+            errors.add(new OHExceptionMessage(MessageBundle.getMessage("angal.hospital"),  MessageBundle.getMessage("angal.dlvrtype.pleaseinsertavaliddescription"),
+                    OHSeverityLevel.ERROR));
+        }
+        return errors;
+    }
 }
